@@ -1,0 +1,9 @@
+{
+    "clipboard": "terminal",
+    "mouse": true,
+    "tabsize": 4,
+    "scrollbar": true,
+    "statusline": true,
+    "syntax": true,
+    "colorscheme": "monokai"
+}

@@ -1,0 +1,12 @@
+{
+    "Ctrl-g": "ToggleHelp",
+    "Ctrl-o": "Save",
+    "Ctrl-x": "Quit",
+    "Ctrl-k": "CutLine",
+    "Ctrl-u": "Paste",
+    "Ctrl-w": "Find",
+    "F1": "ToggleHelp",
+    "F2": "Save",
+    "F3": "Find",
+    "F4": "Quit"
+}

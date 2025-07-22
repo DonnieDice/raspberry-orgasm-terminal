@@ -1,0 +1,86 @@
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "copyOnSelect": true,
+    "copyFormatting": "all",
+    "multiLinePasteWarning": false,
+    "trimBlockSelection": false,
+    "profiles": {
+        "defaults": {
+            "font": {
+                "face": "Cascadia Code",
+                "size": 11
+            },
+            "colorScheme": "RGX Raspberry",
+            "useAcrylic": true,
+            "acrylicOpacity": 0.9,
+            "padding": "10",
+            "cursorShape": "filledBox",
+            "cursorColor": "#e30b5c"
+        },
+        "list": [
+            {
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "name": "RGX Mods",
+                "commandline": "pwsh.exe -NoLogo",
+                "hidden": false
+            }
+        ]
+    },
+    "schemes": [
+        {
+            "name": "RGX Raspberry",
+            "background": "#1f0d24",
+            "foreground": "#ffdbe9",
+            "black": "#000000",
+            "red": "#e30b5c",
+            "green": "#c21e56",
+            "yellow": "#ff1744",
+            "blue": "#3a2c47",
+            "purple": "#9d7ba8",
+            "cyan": "#db2777",
+            "white": "#ffdbe9",
+            "brightBlack": "#52416b",
+            "brightRed": "#ff0040",
+            "brightGreen": "#ff006e",
+            "brightYellow": "#ff4569",
+            "brightBlue": "#5c4a6b",
+            "brightPurple": "#b794c2",
+            "brightCyan": "#ec4899",
+            "brightWhite": "#ffffff",
+            "selectionBackground": "#9d7ba8",
+            "cursorColor": "#e30b5c"
+        }
+    ],
+    "keybindings": [
+        { "command": "openNewTabDropdown", "keys": "ctrl+shift+t" },
+        { "command": { "action": "splitPane", "split": "horizontal" }, "keys": "ctrl+shift+-" },
+        { "command": { "action": "splitPane", "split": "vertical" }, "keys": "ctrl+shift+\\" },
+        { "command": "toggleFocusMode", "keys": "f11" },
+        { "command": "toggleAlwaysOnTop", "keys": "ctrl+shift+a" },
+        { "command": { "action": "adjustFontSize", "delta": 1 }, "keys": "ctrl+=" },
+        { "command": { "action": "adjustFontSize", "delta": -1 }, "keys": "ctrl+-" },
+        { "command": "find", "keys": "ctrl+f" },
+        { "command": { "action": "moveFocus", "direction": "up" }, "keys": "alt+up" },
+        { "command": { "action": "moveFocus", "direction": "down" }, "keys": "alt+down" },
+        { "command": { "action": "moveFocus", "direction": "left" }, "keys": "alt+left" },
+        { "command": { "action": "moveFocus", "direction": "right" }, "keys": "alt+right" },
+        { "command": "togglePaneZoom", "keys": "alt+enter" },
+        { "command": { "action": "clearBuffer", "clear": "all" }, "keys": "ctrl+l" },
+        { "command": { "action": "copy", "singleLine": false, "copyFormatting": "all" }, "keys": "ctrl+shift+c" },
+        { "command": "paste", "keys": "ctrl+shift+v" }
+    ],
+    "actions": [
+        {
+            "command": {
+                "action": "globalSummon",
+                "desktop": "toCurrent",
+                "dropdownDuration": 0,
+                "toggleVisibility": true,
+                "monitor": "any"
+            },
+            "keys": "ctrl+`",
+            "name": "Quake Mode"
+        }
+    ]
+}
