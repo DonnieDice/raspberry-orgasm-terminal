@@ -197,10 +197,34 @@ function Install-TerminalConfig {
     # Check if running from web or local
     if (-not (Test-Path $configSource)) {
         Write-Host "Downloading terminal settings..." -ForegroundColor Yellow
-        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings.json").Content
+        
+        # Check if PowerShell 7 is available
+        $pwsh7Available = Get-Command pwsh.exe -ErrorAction SilentlyContinue
+        
+        if ($pwsh7Available) {
+            Write-Host "PowerShell 7 found, downloading full settings" -ForegroundColor Green
+            $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings.json").Content
+            # Change default profile to PowerShell 7
+            $settingsContent = $settingsContent -replace '"defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}"', '"defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}"'
+        } else {
+            Write-Host "PowerShell 7 not found, using Windows PowerShell only" -ForegroundColor Yellow
+            $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings-simple.json").Content
+        }
+        
         $settingsContent | Out-File $settingsPath -Encoding UTF8
     } else {
-        Copy-Item $configSource $settingsPath -Force
+        # Local install - check which config to use
+        $pwsh7Available = Get-Command pwsh.exe -ErrorAction SilentlyContinue
+        if ($pwsh7Available) {
+            Copy-Item $configSource $settingsPath -Force
+        } else {
+            $simpleConfig = "$PSScriptRoot\config\terminal-settings-simple.json"
+            if (Test-Path $simpleConfig) {
+                Copy-Item $simpleConfig $settingsPath -Force
+            } else {
+                Copy-Item $configSource $settingsPath -Force
+            }
+        }
     }
     Write-Host "Terminal settings applied" -ForegroundColor Green
 }
