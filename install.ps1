@@ -175,6 +175,15 @@ function Install-PowerShellProfile {
     $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8
     
     Write-Host "PowerShell profile configured" -ForegroundColor Green
+    
+    # Clean any corruption in existing profile
+    Write-Host "Cleaning profile..." -ForegroundColor Yellow
+    if (Test-Path $PROFILE) {
+        $cleanProfile = Get-Content $PROFILE -Raw
+        # Remove any potential corruption
+        $cleanProfile = $cleanProfile -replace '[^\x00-\x7F]+', ''
+        $cleanProfile | Out-File $PROFILE -Encoding UTF8 -Force
+    }
 }
 
 function Install-MicroConfig {

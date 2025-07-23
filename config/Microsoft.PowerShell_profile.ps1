@@ -1,5 +1,9 @@
 # RGX Mods by RealmGX Terminal
-oh-my-posh init pwsh --config "$env:USERPROFILE\rgx.omp.json" | Invoke-Expression
+try {
+    oh-my-posh init pwsh --config "$env:USERPROFILE\rgx.omp.json" | Invoke-Expression
+} catch {
+    Write-Host "Oh My Posh initialization failed" -ForegroundColor Yellow
+}
 
 # Enhanced Aliases from Rice Guide
 Set-Alias -Name nano -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue
