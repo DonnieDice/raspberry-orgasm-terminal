@@ -1,5 +1,5 @@
 # RGX Mods by RealmGX Terminal
-oh-my-posh init pwsh --config "$env:USERPROFILE\rgx-simple.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:USERPROFILE\rgx.omp.json" | Invoke-Expression
 
 # Enhanced Aliases from Rice Guide
 Set-Alias -Name nano -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue

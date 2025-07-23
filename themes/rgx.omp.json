@@ -42,8 +42,7 @@
           "foreground": "#ffffff",
           "powerline_symbol": "\uE0B0",
           "style": "powerline",
-          "template": " \uF054 ",
-          "trailing_diamond": "\uE0B4",
+          "template": " > ",
           "type": "text"
         }
       ],

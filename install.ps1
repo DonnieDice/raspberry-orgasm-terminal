@@ -169,10 +169,10 @@ function Install-PowerShellProfile {
     $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1").Content
     $profileContent | Out-File $PROFILE -Encoding UTF8
     
-    # Download Oh My Posh theme (simple version without diamonds)
+    # Download Oh My Posh theme
     Write-Host "Downloading Oh My Posh theme..." -ForegroundColor Yellow
-    $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx-simple.omp.json").Content
-    $themeContent | Out-File "$env:USERPROFILE\rgx-simple.omp.json" -Encoding UTF8
+    $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx.omp.json").Content
+    $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8
     
     Write-Host "PowerShell profile configured" -ForegroundColor Green
 }
