@@ -146,7 +146,16 @@ function Install-TerminalConfig {
     }
     
     # Copy terminal settings
-    Copy-Item "$PSScriptRoot\config\terminal-settings.json" $settingsPath -Force
+    $configSource = "$PSScriptRoot\config\terminal-settings.json"
+    
+    # Check if running from web or local
+    if (-not (Test-Path $configSource)) {
+        Write-Host "Downloading terminal settings..." -ForegroundColor Yellow
+        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings.json").Content
+        $settingsContent | Out-File $settingsPath -Encoding UTF8
+    } else {
+        Copy-Item $configSource $settingsPath -Force
+    }
     Write-Host "Terminal settings applied" -ForegroundColor Green
 }
 
@@ -167,10 +176,26 @@ function Install-PowerShellProfile {
     }
     
     # Copy profile
-    Copy-Item "$PSScriptRoot\config\Microsoft.PowerShell_profile.ps1" $PROFILE -Force
+    $profileSource = "$PSScriptRoot\config\Microsoft.PowerShell_profile.ps1"
+    
+    if (-not (Test-Path $profileSource)) {
+        Write-Host "Downloading PowerShell profile..." -ForegroundColor Yellow
+        $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1").Content
+        $profileContent | Out-File $PROFILE -Encoding UTF8
+    } else {
+        Copy-Item $profileSource $PROFILE -Force
+    }
     
     # Copy Oh My Posh theme
-    Copy-Item "$PSScriptRoot\themes\rgx.omp.json" "$env:USERPROFILE\rgx.omp.json" -Force
+    $themeSource = "$PSScriptRoot\themes\rgx.omp.json"
+    
+    if (-not (Test-Path $themeSource)) {
+        Write-Host "Downloading Oh My Posh theme..." -ForegroundColor Yellow
+        $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx.omp.json").Content
+        $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8
+    } else {
+        Copy-Item $themeSource "$env:USERPROFILE\rgx.omp.json" -Force
+    }
     
     Write-Host "PowerShell profile configured" -ForegroundColor Green
 }
@@ -185,7 +210,21 @@ function Install-MicroConfig {
     }
     
     # Copy micro configurations
-    Copy-Item "$PSScriptRoot\config\micro\*" $microConfigPath -Force -Recurse
+    $microSource = "$PSScriptRoot\config\micro"
+    
+    if (-not (Test-Path $microSource)) {
+        Write-Host "Downloading micro configurations..." -ForegroundColor Yellow
+        
+        # Download bindings.json
+        $bindingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/bindings.json").Content
+        $bindingsContent | Out-File "$microConfigPath\bindings.json" -Encoding UTF8
+        
+        # Download settings.json
+        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/settings.json").Content
+        $settingsContent | Out-File "$microConfigPath\settings.json" -Encoding UTF8
+    } else {
+        Copy-Item "$microSource\*" $microConfigPath -Force -Recurse
+    }
     
     Write-Host "Micro editor configured" -ForegroundColor Green
 }
@@ -193,9 +232,22 @@ function Install-MicroConfig {
 function Install-AdminHotkey {
     Write-Host "Setting up admin terminal hotkey (Ctrl+Alt+T)..." -ForegroundColor Cyan
     
-    # Copy scripts
-    Copy-Item "$PSScriptRoot\scripts\OpenAdminTerminal.ps1" "$env:USERPROFILE\" -Force
-    Copy-Item "$PSScriptRoot\scripts\OpenAdminTerminal.vbs" "$env:USERPROFILE\" -Force
+    # Create admin terminal scripts
+    Write-Host "Creating admin terminal scripts..." -ForegroundColor Yellow
+    
+    # Create PowerShell script
+    $ps1Content = @'
+$terminal = New-Object -ComObject Shell.Application
+$terminal.ShellExecute("wt.exe", "", "", "runas", 1)
+'@
+    $ps1Content | Out-File "$env:USERPROFILE\OpenAdminTerminal.ps1" -Encoding UTF8
+    
+    # Create VBS wrapper
+    $vbsContent = @'
+Set objShell = CreateObject("Wscript.Shell")
+objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName) & "\OpenAdminTerminal.ps1"""", 0, False
+'@
+    $vbsContent | Out-File "$env:USERPROFILE\OpenAdminTerminal.vbs" -Encoding ASCII
     
     # Create shortcut
     $WshShell = New-Object -ComObject WScript.Shell
@@ -213,11 +265,12 @@ try {
     Write-Host "Starting Raspberry Orgasm Terminal Theme installation..." -ForegroundColor Cyan
     Write-Host ""
     
-    # Check if running as admin (recommended but not required)
-    if (-not (Test-Administrator)) {
-        Write-Host "WARNING: Not running as administrator. Some features may not install correctly." -ForegroundColor Yellow
-        Write-Host "Press Ctrl+C to cancel and run as admin, or press Enter to continue..." -ForegroundColor Yellow
-        Read-Host
+    # Check if running as admin
+    $isAdmin = Test-Administrator
+    if ($isAdmin) {
+        Write-Host "Running as administrator. Some tools will be installed for current user." -ForegroundColor Cyan
+    } else {
+        Write-Host "Running as regular user. This is recommended for proper Scoop installation." -ForegroundColor Green
     }
     
     # Install prerequisites
