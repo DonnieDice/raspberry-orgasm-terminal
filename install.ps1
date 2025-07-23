@@ -68,9 +68,37 @@ function Install-Prerequisites {
         if (-not $pwsh7) {
             Write-Host "Installing PowerShell 7..." -ForegroundColor Yellow
             winget install Microsoft.PowerShell -h --accept-source-agreements --accept-package-agreements
+            
+            # Wait for installation and refresh PATH
+            Start-Sleep -Seconds 3
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            
+            # Try to find pwsh again
+            $pwsh7 = Get-Command pwsh.exe -ErrorAction SilentlyContinue
+            if (-not $pwsh7) {
+                # Common installation paths
+                $pwshPaths = @(
+                    "$env:ProgramFiles\PowerShell\7\pwsh.exe",
+                    "$env:ProgramFiles(x86)\PowerShell\7\pwsh.exe",
+                    "$env:LOCALAPPDATA\Microsoft\PowerShell\pwsh.exe"
+                )
+                
+                foreach ($path in $pwshPaths) {
+                    if (Test-Path $path) {
+                        Write-Host "Found PowerShell 7 at: $path" -ForegroundColor Green
+                        $pwshDir = Split-Path $path -Parent
+                        $env:Path += ";$pwshDir"
+                        [Environment]::SetEnvironmentVariable("Path", $env:Path, "User")
+                        break
+                    }
+                }
+            }
+        } else {
+            Write-Host "PowerShell 7 is already installed" -ForegroundColor Green
         }
     } catch {
-        Write-Host "Failed to install PowerShell 7. Please install manually." -ForegroundColor Red
+        Write-Host "Failed to install PowerShell 7: $_" -ForegroundColor Red
+        Write-Host "Please install manually from: https://github.com/PowerShell/PowerShell/releases" -ForegroundColor Yellow
     }
     
     # Install core tools via winget
@@ -131,7 +159,25 @@ function Install-Prerequisites {
 function Install-TerminalConfig {
     Write-Host "Configuring Windows Terminal..." -ForegroundColor Cyan
     
-    $terminalPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+    # Find Windows Terminal installation
+    $terminalPaths = @(
+        "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState",
+        "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState"
+    )
+    
+    $terminalPath = $null
+    foreach ($path in $terminalPaths) {
+        if (Test-Path (Split-Path $path -Parent)) {
+            $terminalPath = $path
+            break
+        }
+    }
+    
+    if (-not $terminalPath) {
+        Write-Host "Windows Terminal not found. Please install it first." -ForegroundColor Red
+        Write-Host "Run: winget install Microsoft.WindowsTerminal" -ForegroundColor Yellow
+        return
+    }
     
     if (-not (Test-Path $terminalPath)) {
         New-Item -ItemType Directory -Path $terminalPath -Force | Out-Null
@@ -289,7 +335,18 @@ try {
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Cyan
     Write-Host "1. Close and reopen Windows Terminal" -ForegroundColor White
-    Write-Host "2. Use PowerShell 7 (pwsh) as your default shell" -ForegroundColor White
+    
+    # Check PowerShell versions
+    $pwshInstalled = Get-Command pwsh.exe -ErrorAction SilentlyContinue
+    if ($pwshInstalled) {
+        Write-Host "2. PowerShell 7 is installed and ready" -ForegroundColor Green
+        Write-Host "   You can use either PowerShell profile in Terminal" -ForegroundColor White
+    } else {
+        Write-Host "2. PowerShell 7 not found - using Windows PowerShell" -ForegroundColor Yellow
+        Write-Host "   The theme works great in Windows PowerShell too!" -ForegroundColor White
+        Write-Host "   For PowerShell 7: winget install Microsoft.PowerShell" -ForegroundColor Gray
+    }
+    
     Write-Host "3. Press Ctrl+Alt+T to test admin terminal hotkey" -ForegroundColor White
     Write-Host "4. Type 'Show-Hotkeys' in terminal to see all shortcuts" -ForegroundColor White
     Write-Host ""

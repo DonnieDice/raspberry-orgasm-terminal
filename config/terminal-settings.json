@@ -21,8 +21,15 @@
         "list": [
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "name": "RGX Mods",
+                "name": "PowerShell",
                 "commandline": "pwsh.exe -NoLogo",
+                "hidden": false,
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "name": "Windows PowerShell",
+                "commandline": "powershell.exe -NoLogo",
                 "hidden": false
             }
         ]
