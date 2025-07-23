@@ -24,13 +24,6 @@
                 "name": "Windows PowerShell",
                 "commandline": "powershell.exe -NoLogo",
                 "hidden": false
-            },
-            {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "name": "PowerShell",
-                "commandline": "pwsh.exe -NoLogo",
-                "hidden": false,
-                "source": "Windows.Terminal.PowershellCore"
             }
         ]
     },
