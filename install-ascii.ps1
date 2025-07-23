@@ -18,7 +18,14 @@ Write-Host " / _, _/ /_/ (__  ) /_/ / /_/ /  __/ /  / /  / /_/ / " -ForegroundCo
 Write-Host "/_/ |_|\__,_/____/ .___/_.___/\___/_/  /_/   \__, /  " -ForegroundColor Magenta
 Write-Host "                /_/                          /____/   " -ForegroundColor Magenta
 Write-Host ""
-Write-Host "    RASPBERRY ORGASM - PowerShell Terminal Theme" -ForegroundColor White
+Write-Host "  ____                                     " -ForegroundColor Magenta
+Write-Host " / __ \_________ _____ ________ ___  ___  " -ForegroundColor DarkRed
+Write-Host "/ / / / ___/ __ ``/ __ ``/ ___/ __ ``__ \/ __ \ " -ForegroundColor DarkRed
+Write-Host "/ /_/ / /  / /_/ / /_/ (__  ) / / / / / / / /" -ForegroundColor DarkRed
+Write-Host "\____/_/   \__, /\__,_/____/_/ /_/ /_/_/ /_/ " -ForegroundColor Magenta
+Write-Host "          /____/                              " -ForegroundColor Magenta
+Write-Host ""
+Write-Host "          PowerShell Terminal Theme" -ForegroundColor Gray
 Write-Host ""
 Write-Host "        RGX MODS by RealmGX" -ForegroundColor Cyan
 Write-Host "        ====================" -ForegroundColor DarkMagenta
