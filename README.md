@@ -1,6 +1,42 @@
-# 🍓 Raspberry Orgasm PowerShell Terminal Theme by RGX Mods / RealmGX
+<div align="center">
+  <img src="https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/assets/rgx-banner.png" alt="RGX Mods Banner" width="100%">
+</div>
+
+# 🍓 Raspberry Orgasm PowerShell Terminal Theme
+
+<div align="center">
+  <pre>
+    ____                 __                       
+   / __ \____ ________  / /_  ___  ____________  
+  / /_/ / __ `/ ___/ / / / __ \/ _ \/ ___/ ___/ / / /
+ / _, _/ /_/ (__  ) /_/ / /_/ /  __/ /  / /  / /_/ / 
+/_/ |_|\__,_/____/ .___/_.___/\___/_/  /_/   \__, /  
+                /_/                          /____/   
+
+       ____                                     
+      / __ \_________ _____ ________ ___  ___  
+     / / / / ___/ __ `/ __ `/ ___/ __ `__ \/ __ \ 
+    / /_/ / /  / /_/ / /_/ (__  ) / / / / / / / /
+    \____/_/   \__, /\__,_/____/_/ /_/ /_/_/ /_/ 
+              /____/                              
+  </pre>
+  
+  <h3>PowerShell Terminal Theme</h3>
+  
+  <p><strong>RGX MODS</strong> by <strong>RealmGX</strong></p>
+  
+  <img src="https://img.shields.io/badge/RGX%20MODS-RealmGX-e30b5c?style=for-the-badge&labelColor=1f0d24" alt="RGX Mods">
+  <img src="https://img.shields.io/badge/Terminal-Theme-db2777?style=for-the-badge&labelColor=1f0d24" alt="Terminal Theme">
+  <img src="https://img.shields.io/badge/PowerShell-7+-5391FE?style=for-the-badge&logo=powershell&logoColor=white" alt="PowerShell">
+</div>
+
+---
 
 ## 🌟 Overview
+
+<div align="center">
+  <em>"Where Terminal Meets Art" - RGX Mods</em>
+</div>
 
 Transform your boring Windows Terminal into a stunning raspberry cyberpunk paradise with rich burgundy, cranberry, and deep purple-grey aesthetics. This terminal theme provides enhanced copy/paste formatting, syntax highlighting, a beautiful single-line powerline prompt, and comprehensive hotkey integration.
 
@@ -19,7 +55,11 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 - **Professional Grade**: Enterprise-ready with full security features
 - **Predictive Text**: Enhanced PSReadLine with history-based predictions
 
-## 🎨 Color Palette
+## 🎨 RGX Color Palette
+
+<div align="center">
+  <em>Carefully crafted by RGX Mods for the perfect terminal experience</em>
+</div>
 
 | Color | Hex Code | Usage |
 |-------|----------|-------|
@@ -33,8 +73,13 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 
 ## 🚀 Quick Installation
 
+<div align="center">
+  <img src="https://img.shields.io/badge/RGX-Quick%20Install-e30b5c?style=for-the-badge" alt="RGX Quick Install">
+</div>
+
 ### One-Line Install (Recommended)
 ```powershell
+# RGX Mods Installer
 iwr -useb https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/install.ps1 | iex
 ```
 
@@ -47,7 +92,11 @@ See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.
 ![Prompt Example](screenshots/prompt-example.png)
 ![Syntax Highlighting](screenshots/syntax-highlighting.png)
 
-## ⌨️ Hotkey Reference
+## ⌨️ RGX Hotkey Reference
+
+<div align="center">
+  <img src="https://img.shields.io/badge/RGX-Power%20User%20Mode-db2777?style=flat-square" alt="RGX Power User">
+</div>
 
 ### Terminal Navigation
 | Hotkey | Action |
@@ -103,6 +152,19 @@ See [CUSTOMIZATION.md](docs/CUSTOMIZATION.md) for detailed customization options
 
 See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for common issues and solutions.
 
+## 🎆 About RGX Mods
+
+RGX Mods is dedicated to creating beautiful, functional terminal experiences. The Raspberry Orgasm theme represents our commitment to:
+
+- **Aesthetic Excellence**: Every color carefully chosen
+- **Performance**: Lightning-fast terminal operations
+- **User Experience**: Intuitive hotkeys and workflows
+- **Community**: Open source and user-driven development
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Follow-RGX%20Mods-e30b5c?style=for-the-badge" alt="Follow RGX Mods">
+</div>
+
 ## 📝 System Requirements
 
 - Windows 10 version 1903 or later
@@ -127,7 +189,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] VS Code integration
 - [ ] Enterprise features (Group Policy support)
 
-## 📊 Analytics & Metrics
+## 📊 Performance by RGX
+
+<div align="center">
+  <em>Optimized for speed and beauty</em>
+</div>
 
 - Startup time: < 2 seconds
 - Memory usage: < 100MB
@@ -136,9 +202,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Created by RGX Mods / RealmGX**  
-*Raspberry Orgasm PowerShell Terminal Theme v1.0*
-
-🍓 *Experience terminal like never before* 🍓
-
-**Support:** [Issues](https://github.com/donniedice/raspberry-orgasm-terminal/issues)
+<div align="center">
+  <h3>🍓 Experience Terminal Like Never Before 🍓</h3>
+  
+  <p>
+    <strong>Created by</strong><br>
+    <img src="https://img.shields.io/badge/RGX%20MODS-e30b5c?style=flat-square" alt="RGX">
+    <img src="https://img.shields.io/badge/by-00b4d8?style=flat-square" alt="by">
+    <img src="https://img.shields.io/badge/RealmGX-e30b5c?style=flat-square" alt="RealmGX">
+  </p>
+  
+  <p>
+    <em>Raspberry Orgasm PowerShell Terminal Theme v1.0</em>
+  </p>
+  
+  <p>
+    <a href="https://github.com/donniedice/raspberry-orgasm-terminal/issues">Support</a> •
+    <a href="https://github.com/donniedice/raspberry-orgasm-terminal/releases">Releases</a> •
+    <a href="https://github.com/donniedice/raspberry-orgasm-terminal/wiki">Wiki</a>
+  </p>
+</div>
