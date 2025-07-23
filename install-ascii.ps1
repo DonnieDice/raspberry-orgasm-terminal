@@ -1,4 +1,4 @@
-# Raspberry Orgasm PowerShell Terminal Theme Installer
+# Raspberry Orgasm PowerShell Terminal Theme Installer (ASCII Version)
 # By RGX Mods / RealmGX
 
 param(
@@ -8,7 +8,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-# Display ASCII banner without Unicode
+# Display ASCII banner
+Clear-Host
 Write-Host ""
 Write-Host "    ____                 __                       " -ForegroundColor Magenta
 Write-Host "   / __ \____ ________  / /_  ___  ____________  " -ForegroundColor DarkRed
@@ -17,21 +18,9 @@ Write-Host " / _, _/ /_/ (__  ) /_/ / /_/ /  __/ /  / /  / /_/ / " -ForegroundCo
 Write-Host "/_/ |_|\__,_/____/ .___/_.___/\___/_/  /_/   \__, /  " -ForegroundColor Magenta
 Write-Host "                /_/                          /____/   " -ForegroundColor Magenta
 Write-Host ""
-Write-Host "   RASPBERRY ORGASM - PowerShell Terminal Theme" -ForegroundColor White
+Write-Host "    RASPBERRY ORGASM - PowerShell Terminal Theme" -ForegroundColor White
 Write-Host ""
-Write-Host "        " -NoNewline
-Write-Host "R" -ForegroundColor DarkRed -NoNewline
-Write-Host "G" -ForegroundColor DarkRed -NoNewline
-Write-Host "X" -ForegroundColor DarkRed -NoNewline
-Write-Host " MODS " -ForegroundColor Cyan -NoNewline
-Write-Host "by " -ForegroundColor Blue -NoNewline
-Write-Host "R" -ForegroundColor DarkRed -NoNewline
-Write-Host "e" -ForegroundColor Blue -NoNewline
-Write-Host "a" -ForegroundColor Blue -NoNewline
-Write-Host "l" -ForegroundColor Blue -NoNewline
-Write-Host "m" -ForegroundColor Blue -NoNewline
-Write-Host "G" -ForegroundColor DarkRed -NoNewline
-Write-Host "X" -ForegroundColor DarkRed
+Write-Host "        RGX MODS by RealmGX" -ForegroundColor Cyan
 Write-Host "        ====================" -ForegroundColor DarkMagenta
 Write-Host ""
 
@@ -71,7 +60,7 @@ function Install-Prerequisites {
         @{id = "JanDeDobbeleer.OhMyPosh"; name = "Oh My Posh"},
         @{id = "sharkdp.bat"; name = "bat"},
         @{id = "charmbracelet.glow"; name = "glow"},
-        @{id = "BurntSushi.ripgrep.MSVC"; name = "ripgrep"},
+        @{id = "BurntSushi.ripgrep"; name = "ripgrep"},
         @{id = "junegunn.fzf"; name = "fzf"},
         @{id = "ajeetdsouza.zoxide"; name = "zoxide"}
     )
@@ -85,28 +74,16 @@ function Install-Prerequisites {
         }
     }
     
-    # Install Scoop (handle admin detection)
+    # Install Scoop
     try {
         $scoop = Get-Command scoop -ErrorAction SilentlyContinue
         if (-not $scoop) {
             Write-Host "Installing Scoop package manager..." -ForegroundColor Yellow
-            
-            # Check if running as admin and install accordingly
-            if (Test-Administrator) {
-                # Install for current user even when admin
-                $env:SCOOP = "$env:USERPROFILE\scoop"
-                [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
-                iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
-            } else {
-                Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-                iwr -useb get.scoop.sh | iex
-            }
-            
-            # Add to PATH
-            $env:Path = "$env:USERPROFILE\scoop\shims;$env:Path"
+            Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+            iwr -useb get.scoop.sh | iex
         }
     } catch {
-        Write-Host "Failed to install Scoop: $_" -ForegroundColor Red
+        Write-Host "Failed to install Scoop" -ForegroundColor Red
     }
     
     # Install Scoop tools
@@ -233,7 +210,7 @@ try {
     Write-Host "3. Press Ctrl+Alt+T to test admin terminal hotkey" -ForegroundColor White
     Write-Host "4. Type 'Show-Hotkeys' in terminal to see all shortcuts" -ForegroundColor White
     Write-Host ""
-    Write-Host "Enjoy your new terminal theme! 🍓" -ForegroundColor Magenta
+    Write-Host "Enjoy your new terminal theme!" -ForegroundColor Magenta
     
 } catch {
     Write-Host ""
