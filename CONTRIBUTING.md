@@ -61,7 +61,7 @@ Enhancement suggestions are welcome! Please provide:
 ### Security Guidelines
 
 - Never include API keys or secrets
-- Maintain HIPAA compliance features
+- Maintain security and privacy features
 - Keep all processing local
 - Document security implications
 

@@ -24,7 +24,22 @@ Write-Host "╩╚═" -ForegroundColor Magenta -NoNewline
 Write-Host "┴ ┴└─┘┴  └─┘└─┘┴└─┴└─ ┴   " -ForegroundColor DarkRed -NoNewline
 Write-Host "╚═╝" -ForegroundColor Magenta -NoNewline
 Write-Host "┴└─└─┘┴ ┴└─┘┴ ┴" -ForegroundColor DarkRed
-Write-Host "          PowerShell Terminal Theme Installer" -ForegroundColor Gray
+Write-Host "          PowerShell Terminal Theme" -ForegroundColor Gray
+Write-Host ""
+Write-Host "        " -NoNewline
+Write-Host "R" -ForegroundColor DarkRed -NoNewline
+Write-Host "G" -ForegroundColor DarkRed -NoNewline
+Write-Host "X" -ForegroundColor DarkRed -NoNewline
+Write-Host " MODS " -ForegroundColor Cyan -NoNewline
+Write-Host "by " -ForegroundColor Blue -NoNewline
+Write-Host "R" -ForegroundColor DarkRed -NoNewline
+Write-Host "e" -ForegroundColor Blue -NoNewline
+Write-Host "a" -ForegroundColor Blue -NoNewline
+Write-Host "l" -ForegroundColor Blue -NoNewline
+Write-Host "m" -ForegroundColor Blue -NoNewline
+Write-Host "G" -ForegroundColor DarkRed -NoNewline
+Write-Host "X" -ForegroundColor DarkRed
+Write-Host "        ════════════════════" -ForegroundColor DarkMagenta
 Write-Host ""
 
 function Test-Administrator {

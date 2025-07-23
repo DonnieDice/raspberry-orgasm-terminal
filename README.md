@@ -16,7 +16,7 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 - **Smart Directory Navigation**: Zoxide integration for intelligent `cd` replacement
 - **Fuzzy Finding**: FZF integration for lightning-fast file searching
 - **Git Integration**: Built-in git aliases and status in prompt
-- **HIPAA Compliant**: Local processing for healthcare environments
+- **Professional Grade**: Enterprise-ready with full security features
 - **Predictive Text**: Enhanced PSReadLine with history-based predictions
 
 ## 🎨 Color Palette
@@ -87,9 +87,13 @@ gc "message"   # git commit -m "message"
 gp             # git push
 ```
 
-## 🏥 HIPAA Compliance
+## 🔐 Security Features
 
-This terminal theme is designed for healthcare environments with complete local processing. See [HIPAA.md](docs/HIPAA.md) for compliance details.
+This terminal theme is designed with security in mind:
+- All processing happens locally on your machine
+- No data is sent to external servers
+- Full audit trail capabilities
+- Secure credential handling
 
 ## 🛠 Customization
 
