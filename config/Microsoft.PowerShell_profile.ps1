@@ -1,5 +1,5 @@
 # RGX Mods by RealmGX Terminal
-oh-my-posh init pwsh --config "$env:USERPROFILE\rgx.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:USERPROFILE\rgx-simple.omp.json" | Invoke-Expression
 
 # Enhanced Aliases from Rice Guide
 Set-Alias -Name nano -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue
@@ -35,10 +35,9 @@ Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
-Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardDeleteWord
 Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
 Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
+# Keep default Alt+Del for forward delete word
 
 # RGX Colors for PSReadLine
 Set-PSReadLineOption -Colors @{

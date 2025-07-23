@@ -1,5 +1,6 @@
-# Raspberry Orgasm PowerShell Terminal Theme Installer
+# Raspberry Orgasm PowerShell Terminal Theme Installer (Simple Version)
 # By RGX Mods / RealmGX
+# This version ONLY uses Windows PowerShell to avoid all compatibility issues
 
 param(
     [switch]$SkipPrerequisites,
@@ -26,19 +27,7 @@ Write-Host "              /____/                              " -ForegroundColor
 Write-Host ""
 Write-Host "             PowerShell Terminal Theme" -ForegroundColor Gray
 Write-Host ""
-Write-Host "        " -NoNewline
-Write-Host "R" -ForegroundColor DarkRed -NoNewline
-Write-Host "G" -ForegroundColor DarkRed -NoNewline
-Write-Host "X" -ForegroundColor DarkRed -NoNewline
-Write-Host " MODS " -ForegroundColor Cyan -NoNewline
-Write-Host "by " -ForegroundColor Blue -NoNewline
-Write-Host "R" -ForegroundColor DarkRed -NoNewline
-Write-Host "e" -ForegroundColor Blue -NoNewline
-Write-Host "a" -ForegroundColor Blue -NoNewline
-Write-Host "l" -ForegroundColor Blue -NoNewline
-Write-Host "m" -ForegroundColor Blue -NoNewline
-Write-Host "G" -ForegroundColor DarkRed -NoNewline
-Write-Host "X" -ForegroundColor DarkRed
+Write-Host "        RGX MODS by RealmGX" -ForegroundColor Cyan
 Write-Host "        ====================" -ForegroundColor DarkMagenta
 Write-Host ""
 
@@ -62,45 +51,6 @@ function Install-Prerequisites {
         Write-Host "Failed to install Windows Terminal. Please install manually." -ForegroundColor Red
     }
     
-    # Install PowerShell 7
-    try {
-        $pwsh7 = Get-Command pwsh.exe -ErrorAction SilentlyContinue
-        if (-not $pwsh7) {
-            Write-Host "Installing PowerShell 7..." -ForegroundColor Yellow
-            winget install Microsoft.PowerShell -h --accept-source-agreements --accept-package-agreements
-            
-            # Wait for installation and refresh PATH
-            Start-Sleep -Seconds 3
-            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-            
-            # Try to find pwsh again
-            $pwsh7 = Get-Command pwsh.exe -ErrorAction SilentlyContinue
-            if (-not $pwsh7) {
-                # Common installation paths
-                $pwshPaths = @(
-                    "$env:ProgramFiles\PowerShell\7\pwsh.exe",
-                    "$env:ProgramFiles(x86)\PowerShell\7\pwsh.exe",
-                    "$env:LOCALAPPDATA\Microsoft\PowerShell\pwsh.exe"
-                )
-                
-                foreach ($path in $pwshPaths) {
-                    if (Test-Path $path) {
-                        Write-Host "Found PowerShell 7 at: $path" -ForegroundColor Green
-                        $pwshDir = Split-Path $path -Parent
-                        $env:Path += ";$pwshDir"
-                        [Environment]::SetEnvironmentVariable("Path", $env:Path, "User")
-                        break
-                    }
-                }
-            }
-        } else {
-            Write-Host "PowerShell 7 is already installed" -ForegroundColor Green
-        }
-    } catch {
-        Write-Host "Failed to install PowerShell 7: $_" -ForegroundColor Red
-        Write-Host "Please install manually from: https://github.com/PowerShell/PowerShell/releases" -ForegroundColor Yellow
-    }
-    
     # Install core tools via winget
     $wingetTools = @(
         @{id = "JanDeDobbeleer.OhMyPosh"; name = "Oh My Posh"},
@@ -120,7 +70,7 @@ function Install-Prerequisites {
         }
     }
     
-    # Install Scoop (handle admin detection)
+    # Install Scoop
     try {
         $scoop = Get-Command scoop -ErrorAction SilentlyContinue
         if (-not $scoop) {
@@ -191,14 +141,8 @@ function Install-TerminalConfig {
         Write-Host "Backed up existing settings to: $backupPath" -ForegroundColor Green
     }
     
-    # Copy terminal settings
-    $configSource = "$PSScriptRoot\config\terminal-settings.json"
-    
-    # Always use Windows PowerShell to avoid pwsh.exe errors
-    Write-Host "Downloading terminal settings..." -ForegroundColor Yellow
-    Write-Host "Using Windows PowerShell for maximum compatibility" -ForegroundColor Cyan
-    
-    # Always download the simple config that only uses Windows PowerShell
+    # ALWAYS use Windows PowerShell only configuration
+    Write-Host "Downloading terminal settings (Windows PowerShell only)..." -ForegroundColor Yellow
     $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings-simple.json").Content
     $settingsContent | Out-File $settingsPath -Encoding UTF8
     Write-Host "Terminal settings applied" -ForegroundColor Green
@@ -220,27 +164,15 @@ function Install-PowerShellProfile {
         Write-Host "Backed up existing profile to: $backupPath" -ForegroundColor Green
     }
     
-    # Copy profile
-    $profileSource = "$PSScriptRoot\config\Microsoft.PowerShell_profile.ps1"
+    # Download profile
+    Write-Host "Downloading PowerShell profile..." -ForegroundColor Yellow
+    $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1").Content
+    $profileContent | Out-File $PROFILE -Encoding UTF8
     
-    if (-not (Test-Path $profileSource)) {
-        Write-Host "Downloading PowerShell profile..." -ForegroundColor Yellow
-        $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1").Content
-        $profileContent | Out-File $PROFILE -Encoding UTF8
-    } else {
-        Copy-Item $profileSource $PROFILE -Force
-    }
-    
-    # Copy Oh My Posh theme
-    $themeSource = "$PSScriptRoot\themes\rgx.omp.json"
-    
-    if (-not (Test-Path $themeSource)) {
-        Write-Host "Downloading Oh My Posh theme..." -ForegroundColor Yellow
-        $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx.omp.json").Content
-        $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8
-    } else {
-        Copy-Item $themeSource "$env:USERPROFILE\rgx.omp.json" -Force
-    }
+    # Download Oh My Posh theme (simple version without diamonds)
+    Write-Host "Downloading Oh My Posh theme..." -ForegroundColor Yellow
+    $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx-simple.omp.json").Content
+    $themeContent | Out-File "$env:USERPROFILE\rgx-simple.omp.json" -Encoding UTF8
     
     Write-Host "PowerShell profile configured" -ForegroundColor Green
 }
@@ -254,22 +186,15 @@ function Install-MicroConfig {
         New-Item -ItemType Directory -Path $microConfigPath -Force | Out-Null
     }
     
-    # Copy micro configurations
-    $microSource = "$PSScriptRoot\config\micro"
+    Write-Host "Downloading micro configurations..." -ForegroundColor Yellow
     
-    if (-not (Test-Path $microSource)) {
-        Write-Host "Downloading micro configurations..." -ForegroundColor Yellow
-        
-        # Download bindings.json
-        $bindingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/bindings.json").Content
-        $bindingsContent | Out-File "$microConfigPath\bindings.json" -Encoding UTF8
-        
-        # Download settings.json
-        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/settings.json").Content
-        $settingsContent | Out-File "$microConfigPath\settings.json" -Encoding UTF8
-    } else {
-        Copy-Item "$microSource\*" $microConfigPath -Force -Recurse
-    }
+    # Download bindings.json
+    $bindingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/bindings.json").Content
+    $bindingsContent | Out-File "$microConfigPath\bindings.json" -Encoding UTF8
+    
+    # Download settings.json
+    $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/settings.json").Content
+    $settingsContent | Out-File "$microConfigPath\settings.json" -Encoding UTF8
     
     Write-Host "Micro editor configured" -ForegroundColor Green
 }
@@ -290,7 +215,7 @@ $terminal.ShellExecute("wt.exe", "", "", "runas", 1)
     # Create VBS wrapper
     $vbsContent = @'
 Set objShell = CreateObject("Wscript.Shell")
-objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName) & "\OpenAdminTerminal.ps1"""", 0, False
+objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName) & "\OpenAdminTerminal.ps1""", 0, False
 '@
     $vbsContent | Out-File "$env:USERPROFILE\OpenAdminTerminal.vbs" -Encoding ASCII
     
@@ -308,6 +233,7 @@ objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "
 # Main installation flow
 try {
     Write-Host "Starting Raspberry Orgasm Terminal Theme installation..." -ForegroundColor Cyan
+    Write-Host "(Windows PowerShell Edition - No Compatibility Issues!)" -ForegroundColor Green
     Write-Host ""
     
     # Check if running as admin
@@ -334,22 +260,11 @@ try {
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Cyan
     Write-Host "1. Close and reopen Windows Terminal" -ForegroundColor White
-    
-    # Check PowerShell versions
-    $pwshInstalled = Get-Command pwsh.exe -ErrorAction SilentlyContinue
-    if ($pwshInstalled) {
-        Write-Host "2. PowerShell 7 is installed and ready" -ForegroundColor Green
-        Write-Host "   You can use either PowerShell profile in Terminal" -ForegroundColor White
-    } else {
-        Write-Host "2. PowerShell 7 not found - using Windows PowerShell" -ForegroundColor Yellow
-        Write-Host "   The theme works great in Windows PowerShell too!" -ForegroundColor White
-        Write-Host "   For PowerShell 7: winget install Microsoft.PowerShell" -ForegroundColor Gray
-    }
-    
+    Write-Host "2. Windows PowerShell is configured and ready" -ForegroundColor Green
     Write-Host "3. Press Ctrl+Alt+T to test admin terminal hotkey" -ForegroundColor White
     Write-Host "4. Type 'Show-Hotkeys' in terminal to see all shortcuts" -ForegroundColor White
     Write-Host ""
-    Write-Host "Enjoy your new terminal theme! 🍓" -ForegroundColor Magenta
+    Write-Host "Enjoy your new terminal theme!" -ForegroundColor Magenta
     
 } catch {
     Write-Host ""
