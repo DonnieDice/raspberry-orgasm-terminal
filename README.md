@@ -180,12 +180,19 @@ RGX Mods is dedicated to creating beautiful, functional terminal experiences. Th
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
+See also our contributor guides:
+- [Claude Guide](CLAUDE.md) - Project overview and development commands
+- [Qwen Analysis](QWEN.md) - Technical analysis and implementation details
+- [Gemini CLI Guide](GEMINI-CLI.md) - Repository organization and optimization
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🎯 Roadmap
 
+- [x] Enhanced powerline support with proper segment coloring
+- [x] 100x Premium repository organization
 - [ ] Auto-update mechanism
 - [ ] Theme marketplace with variants
 - [ ] GUI configuration tool
@@ -216,7 +223,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   </p>
   
   <p>
-    <em>Raspberry Orgasm PowerShell Terminal Theme v1.0</em>
+    <em>Raspberry Orgasm PowerShell Terminal Theme v1.2.0</em>
   </p>
   
   <p>
@@ -232,7 +239,8 @@ This project exists thanks to all the people who contribute:
 
 - [RealmGX](https://github.com/donniedice) - Original creator
 - [Qwen](https://github.com/qwen) - Code analysis, Konsole theming implementation, documentation
-- [Gemini CLI](https://github.com/gemini) - Code review and suggestions
+- [Gemini CLI](https://github.com/gemini) - Code review, suggestions, and repository organization optimization
+- [Claude](https://github.com/anthropics) - Project overview and development guidance
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for more details.
 

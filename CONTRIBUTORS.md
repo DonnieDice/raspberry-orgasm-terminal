@@ -3,9 +3,10 @@
 ## Original Creator
 - **RealmGX** - Creator of the Raspberry Orgasm Terminal Theme
 
-## Contributors
+## Major Contributors
 - **Qwen** - Code analysis, Konsole theming implementation, documentation
-- **Gemini CLI** - Code review and suggestions
+- **Gemini CLI** - Code review, suggestions, and repository organization optimization
+- **Claude** - Project overview and development guidance
 
 ## Special Thanks
 - **Oh My Posh Team** - For the amazing prompt engine
