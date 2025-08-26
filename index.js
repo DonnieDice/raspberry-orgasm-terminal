@@ -15,7 +15,7 @@ const executeScript = (scriptPath, args = []) => {
             console.error(`Script exited with code ${code}`);
         } else {
             console.log('\nInstallation script finished.');
-            console.log('Please remember to install a Nerd Font and restart your terminal.');
+            console.log('Please restart your terminal to see the changes.');
         }
     });
 

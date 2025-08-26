@@ -82,6 +82,7 @@ npx git+https://github.com/DonnieDice/raspberry-orgasm-terminal.git
 This single command will download and run the installer, which will:
 - Install `oh-my-posh` if it's not already present.
 - Install the theme and configure your shell.
+- For Linux users, automatically set up Konsole themes if Konsole is detected.
 
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.
@@ -168,8 +169,8 @@ RGX Mods is dedicated to creating beautiful, functional terminal experiences. Th
 ## 📝 System Requirements
 
 - Windows 10 version 1903 or later
-- Windows Terminal (latest version)
-- PowerShell 7.x
+- Windows Terminal (latest version) OR Konsole (for Linux users)
+- PowerShell 7.x OR Bash
 - 4GB RAM minimum
 - 1GB free disk space
 
@@ -222,3 +223,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     <a href="https://github.com/donniedice/raspberry-orgasm-terminal/wiki">Wiki</a>
   </p>
 </div>
+
+## 🙌 Contributors
+
+This project exists thanks to all the people who contribute:
+
+- [RealmGX](https://github.com/donniedice) - Original creator
+- [Qwen](https://github.com/qwen) - Code analysis, Konsole theming implementation, documentation
+- [Gemini CLI](https://github.com/gemini) - Code review and suggestions
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for more details.
+
+---
