@@ -82,7 +82,7 @@ npx rgx-terminal-theme
 This single command will download and run the installer, which will:
 - Install `oh-my-posh` if it's not already present.
 - Install the theme and configure your shell.
-- Provide instructions for installing a Nerd Font.
+
 
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.

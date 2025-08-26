@@ -41,6 +41,4 @@ fi
 
 echo ""
 echo "Installation complete!"
-echo "Please install a Nerd Font to see all icons correctly."
-echo "You can find them at https://www.nerdfonts.com/"
-echo "After installing a font, restart your terminal."
+echo "Restart your terminal to see the changes."

@@ -5,43 +5,29 @@
       "alignment": "left",
       "segments": [
         {
-          "background": "#e30b5c",
-          "foreground": "#ffffff",
-          "leading_diamond": "\uE0B6",
-          "style": "diamond",
-          "template": " {{ .UserName }} ",
+          "foreground": "#e30b5c",
+          "style": "plain",
+          "template": "[{{ .UserName }}]",
           "type": "session"
         },
         {
-          "background": "#c21e56",
-          "foreground": "#ffffff",
-          "powerline_symbol": "\uE0B0",
-          "properties": {
-            "style": "agnoster_short"
-          },
-          "style": "powerline",
-          "template": " {{ .Path }} ",
+          "foreground": "#c21e56",
+          "style": "plain",
+          "template": " {{ .Path }}",
           "type": "path"
         },
         {
-          "background": "#8b2252",
-          "background_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#ff0040{{ end }}"
-          ],
-          "foreground": "#ffffff",
-          "powerline_symbol": "\uE0B0",
+          "foreground": "#8b2252",
           "properties": {
             "fetch_status": true
           },
-          "style": "powerline",
-          "template": " {{ .HEAD }} ",
+          "style": "plain",
+          "template": " ({{ .HEAD }})",
           "type": "git"
         },
         {
-          "background": "#9d7ba8",
-          "foreground": "#ffffff",
-          "powerline_symbol": "\uE0B0",
-          "style": "powerline",
+          "foreground": "#9d7ba8",
+          "style": "plain",
           "template": " > ",
           "type": "text"
         }

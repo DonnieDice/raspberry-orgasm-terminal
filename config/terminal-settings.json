@@ -8,7 +8,7 @@
     "profiles": {
         "defaults": {
             "font": {
-                "face": "Cascadia Code",
+                "face": "Courier New",
                 "size": 11
             },
             "colorScheme": "RGX Raspberry",
