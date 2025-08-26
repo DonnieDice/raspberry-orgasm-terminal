@@ -1,39 +1,59 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "transient_prompt": {
+    "template": " > ",
+    "foreground": "#9d7ba8",
+    "background": "transparent"
+  },
+  "console_title_template": "{{ .Folder }}",
   "blocks": [
     {
+      "type": "prompt",
       "alignment": "left",
       "segments": [
         {
-          "foreground": "#e30b5c",
-          "style": "plain",
-          "template": "[{{ .UserName }}]",
-          "type": "session"
-        },
-        {
-          "foreground": "#c21e56",
-          "style": "plain",
-          "template": " {{ .Path }}",
-          "type": "path"
-        },
-        {
-          "foreground": "#8b2252",
           "properties": {
+            "cache_duration": "none"
+          },
+          "template": " {{ .UserName }} ",
+          "foreground": "#1f0d24",
+          "background": "#e30b5c",
+          "type": "session",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " {{ .Path }} ",
+          "foreground": "#ffffff",
+          "background": "#c21e56",
+          "type": "path",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none",
             "fetch_status": true
           },
-          "style": "plain",
-          "template": " ({{ .HEAD }})",
-          "type": "git"
+          "template": " {{ .HEAD }} ",
+          "foreground": "#ffffff",
+          "background": "#8b2252",
+          "type": "git",
+          "style": "plain"
         },
         {
-          "foreground": "#9d7ba8",
-          "style": "plain",
+          "properties": {
+            "cache_duration": "none"
+          },
           "template": " > ",
-          "type": "text"
+          "foreground": "#1f0d24",
+          "background": "#9d7ba8",
+          "type": "text",
+          "style": "plain"
         }
-      ],
-      "type": "prompt"
+      ]
     }
   ],
-  "version": 2
+  "version": 3
 }

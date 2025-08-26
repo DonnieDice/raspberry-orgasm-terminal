@@ -44,7 +44,7 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 - **Rich HTML Copy/Paste**: Perfect formatting preservation when copying terminal output to Word, Email, etc.
 - **Syntax Highlighting**: Beautiful code highlighting with `bat` for all file types
 - **Markdown Rendering**: Stunning in-terminal markdown with `glow`
-- **Single-Line Powerline Prompt**: Clean raspberry gradient design with git integration
+- **Enhanced Powerline Prompt**: Clean raspberry gradient design with git integration and proper Konsole support
 - **Custom Color Scheme**: Raspberry/burgundy reds with deep purple-grey accents
 - **Nano-Style Editor**: Micro editor with familiar Ctrl+O/Ctrl+X keybindings
 - **Advanced Hotkeys**: Complete keyboard shortcut integration for power users
@@ -86,6 +86,8 @@ This single command will download and run the installer, which will:
 
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.
+
+For Konsole users, see [Konsole Powerline Verification](docs/KONSOLE-POWERLINE-VERIFICATION.md) for setup verification.
 
 ## 📸 Screenshots
 

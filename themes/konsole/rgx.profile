@@ -14,3 +14,6 @@ AllowBlinkingText=true
 AllowBold=true
 AllowMouseReporting=true
 AllowTerminalHoveredControlReporting=true
+
+[Environment]
+TERM=xterm-256color

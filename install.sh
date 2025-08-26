@@ -24,13 +24,9 @@ if ! command_exists pip3; then
     sudo apt update && sudo apt install -y python3-pip
 fi
 
-# Install powerline fonts
-if [ ! -d "$HOME/.local/share/fonts" ]; then
-    mkdir -p "$HOME/.local/share/fonts"
-fi
-
 # Try to install fonts-powerline package first
 if command_exists apt; then
+    echo "Installing system powerline fonts..."
     sudo apt install -y fonts-powerline
 fi
 
@@ -41,6 +37,9 @@ if ! fc-list | grep -i "Cascadia" > /dev/null; then
     unzip -o /tmp/CascadiaCode.zip -d /tmp/cascadia
     cp /tmp/cascadia/ttf/*.ttf "$HOME/.local/share/fonts/"
     fc-cache -fv
+    echo "Cascadia Code font installed successfully!"
+else
+    echo "Powerline-capable font already installed."
 fi
 
 # Create themes directory
@@ -94,6 +93,19 @@ if ! grep -q "RGX Mods Konsole Enhancements" "$BASHRC_FILE";
     echo "command -v lsd >/dev/null 2>&1 && alias ls='lsd'" >> "$BASHRC_FILE"
     echo "command -v bat >/dev/null 2>&1 && alias cat='bat'" >> "$BASHRC_FILE"
     echo "command -v rg >/dev/null 2>&1 && alias grep='rg'" >> "$BASHRC_FILE"
+fi
+
+# Set Konsole environment variables in the Konsole profile
+if command_exists konsole; then
+    KONSOLE_DIR="$HOME/.local/share/konsole"
+    if [ -f "$KONSOLE_DIR/rgx.profile" ]; then
+        # Ensure TERM environment variable is set in the profile
+        if ! grep -q "TERM=xterm-256color" "$KONSOLE_DIR/rgx.profile"; then
+            echo "" >> "$KONSOLE_DIR/rgx.profile"
+            echo "[Environment]" >> "$KONSOLE_DIR/rgx.profile"
+            echo "TERM=xterm-256color" >> "$KONSOLE_DIR/rgx.profile"
+        fi
+    fi
 fi
 
 echo ""
