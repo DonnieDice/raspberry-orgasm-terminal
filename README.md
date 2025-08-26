@@ -72,21 +72,17 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 
 ## 🚀 Quick Installation
 
-<div align="center">
-  <img src="https://img.shields.io/badge/RGX-Quick%20Install-e30b5c?style=for-the-badge" alt="RGX Quick Install">
-</div>
+The recommended way to install the Raspberry Orgasm Terminal Theme is using `npx`.
+This will automatically detect your operating system and run the appropriate installer.
 
-### One-Line Install (Recommended)
-```powershell
-# RGX Mods Installer
-iwr -useb https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/install.ps1 | iex
-```
-
-### Linux Installation
 ```bash
-# RGX Mods Installer for Linux
-./install.sh
+npx rgx-terminal-theme
 ```
+
+This single command will download and run the installer, which will:
+- Install `oh-my-posh` if it's not already present.
+- Install the theme and configure your shell.
+- Provide instructions for installing a Nerd Font.
 
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.

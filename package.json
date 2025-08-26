@@ -1,0 +1,31 @@
+{
+  "name": "rgx-terminal-theme",
+  "version": "1.1.0",
+  "description": "A beautiful, feature-rich terminal theme with a raspberry/burgundy aesthetic.",
+  "main": "index.js",
+  "bin": {
+    "install-rgx-theme": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonnieDice/raspberry-orgasm-terminal.git"
+  },
+  "keywords": [
+    "terminal",
+    "theme",
+    "powershell",
+    "bash",
+    "zsh",
+    "oh-my-posh"
+  ],
+  "author": "RealmGX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DonnieDice/raspberry-orgasm-terminal/issues"
+  },
+  "homepage": "https://github.com/DonnieDice/raspberry-orgasm-terminal#readme",
+  "preferGlobal": true
+}
