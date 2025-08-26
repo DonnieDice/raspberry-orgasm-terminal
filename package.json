@@ -1,6 +1,6 @@
 {
   "name": "rgx-terminal-theme",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A beautiful, feature-rich terminal theme with a raspberry/burgundy aesthetic.",
   "main": "index.js",
   "bin": {
