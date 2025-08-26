@@ -238,8 +238,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 This project exists thanks to all the people who contribute:
 
 - [RealmGX](https://github.com/donniedice) - Original creator
-- [Qwen](https://github.com/qwen) - Code analysis, Konsole theming implementation, documentation
-- [Gemini CLI](https://github.com/gemini) - Code review, suggestions, and repository organization optimization
+- [Qwen3-Coder](https://github.com/QwenLM/Qwen3-Coder) - Code analysis, Konsole theming implementation, documentation
+- [Gemini CLI](https://github.com/google-gemini) - Repository organization optimization and code review
 - [Claude](https://github.com/anthropics) - Project overview and development guidance
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for more details.

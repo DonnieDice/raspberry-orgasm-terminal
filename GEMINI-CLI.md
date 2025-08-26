@@ -41,7 +41,7 @@ raspberry-orgasm-terminal/
 ├── LICENSE              # MIT License
 ├── package.json         # Node.js package configuration
 ├── POWERLINE-ENHANCEMENT-SUMMARY.md # Powerline enhancement details
-├── QWEN.md              # Qwen-specific project analysis
+├── QWEN.md              # Qwen3-Coder-specific project analysis
 ├── README.md            # Main project documentation
 └── GEMINI-CLI.md        # This file - Gemini CLI project guide
 ```
