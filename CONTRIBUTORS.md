@@ -1,10 +1,10 @@
 # Contributors
 
 ## Original Creator
-- **RealmGX** - Creator of the Raspberry Orgasm Terminal Theme
+- **donniedice** - Creator of the Raspberry Orgasm Terminal Theme
 
 ## Major Contributors
-- _No major contributors yet_
+- **Joseph Gettings** - Code analysis, Konsole theming implementation, documentation
 
 ## Special Thanks
 - **Oh My Posh Team** - For the amazing prompt engine
