@@ -82,6 +82,12 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 iwr -useb https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/install.ps1 | iex
 ```
 
+### Linux Installation
+```bash
+# RGX Mods Installer for Linux
+./install.sh
+```
+
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.
 
