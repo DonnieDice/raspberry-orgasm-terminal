@@ -72,17 +72,16 @@ Transform your boring Windows Terminal into a stunning raspberry cyberpunk parad
 
 ## 🚀 Quick Installation
 
-The recommended way to install the Raspberry Orgasm Terminal Theme is using `npx`.
+The recommended way to install the Raspberry Orgasm Terminal Theme is using `npx`, which will install the theme directly from this GitHub repository.
 This will automatically detect your operating system and run the appropriate installer.
 
 ```bash
-npx rgx-terminal-theme
+npx git+https://github.com/DonnieDice/raspberry-orgasm-terminal.git
 ```
 
 This single command will download and run the installer, which will:
 - Install `oh-my-posh` if it's not already present.
 - Install the theme and configure your shell.
-
 
 ### Manual Installation
 See [INSTALL.md](INSTALL.md) for detailed manual installation instructions.
