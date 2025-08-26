@@ -232,8 +232,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This project exists thanks to all the people who contribute:
 
-- [donniedice](https://github.com/donniedice) - Original creator
-- [Joseph Gettings](https://github.com/josephgettings) - Code analysis, Konsole theming implementation, documentation
+- **[DonnieDice](https://github.com/DonnieDice)** - Original creator
+- **[Joseph Gettings](https://github.com/josephgettings)** - Code analysis, Konsole theming implementation, documentation
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for more details.
 
