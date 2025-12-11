@@ -10,11 +10,27 @@ command_exists() {
 }
 
 # Install oh-my-posh if not installed
-if ! command_exists oh-my-posh;
-    then
+if ! command_exists oh-my-posh; then
     echo "oh-my-posh not found. Installing..."
-    sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+    MAX_RETRIES=5
+    RETRY_DELAY_SECONDS=5
+    for i in $(seq 1 $MAX_RETRIES); do
+        echo "Attempt $i/$MAX_RETRIES: Downloading oh-my-posh..."
+        if sudo wget --tries=1 --timeout=20 https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh; then
+            echo "oh-my-posh downloaded successfully."
+            break
+        else
+            echo "Download failed. Retrying in $RETRY_DELAY_SECONDS seconds..."
+            sleep $RETRY_DELAY_SECONDS
+        fi
+        if [ $i -eq $MAX_RETRIES ]; then
+            echo "Failed to download oh-my-posh after $MAX_RETRIES attempts."
+            exit 1
+        fi
+    done
     sudo chmod +x /usr/local/bin/oh-my-posh
+    touch "$HOME/.local/share/raspberry-orgasm-terminal_oh_my_posh_installed_by_us"
+    echo "Flag file created: Oh My Posh installed by this script."
     oh-my-posh --version
 else
     echo "oh-my-posh is already installed."

@@ -13,11 +13,18 @@ echo "Starting uninstallation for Raspberry Orgasm Terminal Theme..."
 
 # --- 1. Remove oh-my-posh (if installed by this script) ---
 echo "Removing oh-my-posh..."
-if [ -f "/usr/local/bin/oh-my-posh" ]; then
-    sudo rm -f /usr/local/bin/oh-my-posh
-    echo "oh-my-posh removed."
+OMP_FLAG_FILE="$HOME/.local/share/raspberry-orgasm-terminal_oh_my_posh_installed_by_us"
+if [ -f "$OMP_FLAG_FILE" ]; then
+    if [ -f "/usr/local/bin/oh-my-posh" ]; then
+        sudo rm -f /usr/local/bin/oh-my-posh
+        echo "oh-my-posh removed."
+    else
+        echo "oh-my-posh binary not found, but flag file exists. Skipping removal."
+    fi
+    rm -f "$OMP_FLAG_FILE"
+    echo "Oh My Posh installation flag removed."
 else
-    echo "oh-my-posh not found or not installed by this script. Skipping."
+    echo "Oh My Posh was not installed by this script. Skipping removal of oh-my-posh binary."
 fi
 
 # --- 2. Remove Cascadia Code Fonts ---
