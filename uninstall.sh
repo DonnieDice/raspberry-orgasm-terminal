@@ -51,9 +51,23 @@ if [ -d "$KONSOLE_DIR" ]; then
     # Attempt to reset Konsole default profile
     if command_exists kwriteconfig5; then
         echo "Attempting to reset Konsole default profile..."
-        # Set DefaultProfile to empty string or a known default if you have one
-        kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "" || true
-        echo "Konsole default profile reset (attempted)."
+        KONSOLE_BACKUP_FILE="$KONSOLE_DIR/old_default_profile_backup"
+        if [ -f "$KONSOLE_BACKUP_FILE" ]; then
+            OLD_KONSOLE_DEFAULT_PROFILE=$(cat "$KONSOLE_BACKUP_FILE")
+            if [ -n "$OLD_KONSOLE_DEFAULT_PROFILE" ]; then
+                kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "$OLD_KONSOLE_DEFAULT_PROFILE" || true
+                echo "Restored old Konsole default profile: $OLD_KONSOLE_DEFAULT_PROFILE."
+            else
+                # If backup was empty, remove the key entirely
+                kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "" || true
+                echo "Removed Konsole DefaultProfile key (it was empty before)."
+            fi
+            rm -f "$KONSOLE_BACKUP_FILE"
+        else
+            # If no backup file, set to empty or a safe default
+            kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "" || true
+            echo "No Konsole default profile backup found. Resetting DefaultProfile to empty."
+        fi
     fi
     # Remove directory if empty, to be safe.
     rmdir "$KONSOLE_DIR" 2>/dev/null || true
