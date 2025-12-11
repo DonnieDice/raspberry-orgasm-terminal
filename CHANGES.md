@@ -8,6 +8,9 @@
 - Added cleanup for Konsole default profile in `uninstall.sh`.
 - Reordered Oh My Posh initialization in `install.sh` to ensure it loads last in `.bashrc` for higher precedence.
 - Updated `.bashrc` cleanup in `uninstall.sh` with more robust `sed` patterns, eliminating reliance on fixed line counts.
+- Corrected font specification in `themes/konsole/rgx.profile` to 'Cascadia Mono NF' for proper symbol rendering.
+- Added `command_exists` function to `uninstall.sh`.
+- Removed noisy `.bashrc` sourcing from `uninstall.sh`.
 
 ## v1.0.1 (December 11, 2025)
 
