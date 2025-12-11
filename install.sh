@@ -9,6 +9,30 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+# Function to prompt for sudo password and keep it alive
+run_sudo_command() {
+    local cmd="$@"
+    local MAX_SUDO_ATTEMPTS=3
+    for (( i=1; i<=MAX_SUDO_ATTEMPTS; ++i )); do
+        if sudo -v; then # Check if sudo credentials are valid
+            echo "Running: $cmd"
+            if $cmd; then # Execute the actual command
+                return 0
+            else
+                echo "Command '$cmd' failed."
+                return 1
+            fi
+        else
+            echo "Sudo authentication failed (attempt $i/$MAX_SUDO_ATTEMPTS)."
+            if [ $i -eq $MAX_SUDO_ATTEMPTS ]; then
+                echo "Max sudo attempts reached. Exiting."
+                exit 1
+            fi
+            sleep 1 # Small delay before next prompt
+        fi
+    done
+}
+
 # Install oh-my-posh if not installed
 if ! command_exists oh-my-posh; then
     echo "oh-my-posh not found. Installing..."
@@ -16,7 +40,7 @@ if ! command_exists oh-my-posh; then
     RETRY_DELAY_SECONDS=5
     for i in $(seq 1 $MAX_RETRIES); do
         echo "Attempt $i/$MAX_RETRIES: Downloading oh-my-posh..."
-        if sudo wget --tries=1 --timeout=20 https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh; then
+        if run_sudo_command wget --tries=1 --timeout=20 https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh; then
             echo "oh-my-posh downloaded successfully."
             break
         else
@@ -28,7 +52,7 @@ if ! command_exists oh-my-posh; then
             exit 1
         fi
     done
-    sudo chmod +x /usr/local/bin/oh-my-posh
+    run_sudo_command chmod +x /usr/local/bin/oh-my-posh
     touch "$HOME/.local/share/raspberry-orgasm-terminal_oh_my_posh_installed_by_us"
     echo "Flag file created: Oh My Posh installed by this script."
     oh-my-posh --version
@@ -40,13 +64,13 @@ fi
 echo "Installing powerline fonts for proper symbol rendering..."
 if ! command_exists pip3; then
     echo "pip3 not found. Installing python3-pip..."
-    sudo apt update && sudo apt install -y python3-pip
+    run_sudo_command apt update && run_sudo_command apt install -y python3-pip
 fi
 
 # Try to install fonts-powerline package first
 if command_exists apt; then
     echo "Installing system powerline fonts..."
-    sudo apt install -y fonts-powerline
+    run_sudo_command apt install -y fonts-powerline
 fi
 
 # If that doesn't work, install packaged Cascadia Code Nerd Font
