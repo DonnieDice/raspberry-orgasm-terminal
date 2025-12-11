@@ -4,6 +4,11 @@
 set -e
 set -o pipefail
 
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 echo "Starting uninstallation for Raspberry Orgasm Terminal Theme..."
 
 # --- 1. Remove oh-my-posh (if installed by this script) ---
@@ -74,6 +79,3 @@ fi
 
 echo "Uninstallation complete!"
 echo "Please restart your terminal to see the changes fully applied."
-
-# Source .bashrc to apply changes immediately to the current terminal session
-[ -f "$BASHRC_FILE" ] && . "$BASHRC_FILE"
