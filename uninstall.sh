@@ -62,9 +62,9 @@ echo "Reverting .bashrc changes..."
 BASHRC_FILE="$HOME/.bashrc"
 if [ -f "$BASHRC_FILE" ]; then
     # Remove oh-my-posh initialization
-    sed -i '/# Initialize Oh My Posh/,+2d' "$BASHRC_FILE" 2>/dev/null || true
+    sed -i '/# Initialize Oh My Posh/,/^eval \$(oh-my-posh init bash --config/d' "$BASHRC_FILE" 2>/dev/null || true
     # Remove RGX Mods Konsole Enhancements
-    sed -i '/# RGX Mods Konsole Enhancements/,+6d' "$BASHRC_FILE" 2>/dev/null || true
+    sed -i '/# RGX Mods Konsole Enhancements/,/^command -v rg >\/dev\/null 2>&1 && alias grep='\''rg'\''/d' "$BASHRC_FILE" 2>/dev/null || true
     # Remove remaining empty lines that might have been created
     sed -i '/^$/d' "$BASHRC_FILE" 2>/dev/null || true
     echo ".bashrc changes reverted."

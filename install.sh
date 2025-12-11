@@ -76,17 +76,7 @@ if [ ! -f "$BASHRC_FILE" ]; then
     touch "$BASHRC_FILE" || { echo "Error: Cannot create .bashrc"; exit 1; }
 fi
 
-if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
-    then
-    echo "Adding oh-my-posh to .bashrc"
-    {
-        echo ""
-        echo "# Initialize Oh My Posh"
-        echo "$INIT_COMMAND"
-    } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
-else
-    echo "oh-my-posh is already configured in .bashrc"
-fi
+
 
 # Add Konsole enhancements to .bashrc
 if ! grep -q "RGX Mods Konsole Enhancements" "$BASHRC_FILE";
@@ -104,6 +94,19 @@ if ! grep -q "RGX Mods Konsole Enhancements" "$BASHRC_FILE";
         echo "command -v bat >/dev/null 2>&1 && alias cat='bat'"
         echo "command -v rg >/dev/null 2>&1 && alias grep='rg'"
     } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
+fi
+
+# Add oh-my-posh to .bashrc (moved to end for precedence)
+if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
+    then
+    echo "Adding oh-my-posh to .bashrc"
+    {
+        echo ""
+        echo "# Initialize Oh My Posh"
+        echo "$INIT_COMMAND"
+    } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
+else
+    echo "oh-my-posh is already configured in .bashrc"
 fi
 
 # Set Konsole environment variables in the Konsole profile
