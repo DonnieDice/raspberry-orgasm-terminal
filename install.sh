@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Raspberry Orgasm Terminal Theme Installer for Linux
+set -e
+set -o pipefail
 
 # Function to check if a command exists
 command_exists() {
@@ -35,8 +37,9 @@ if ! fc-list | grep -i "Cascadia" > /dev/null; then
     echo "Installing Cascadia Code font..."
     wget https://github.com/microsoft/cascadia-code/releases/latest/download/CascadiaCode.zip -O /tmp/CascadiaCode.zip
     unzip -o /tmp/CascadiaCode.zip -d /tmp/cascadia
-    cp /tmp/cascadia/ttf/*.ttf "$HOME/.local/share/fonts/"
-    fc-cache -fv
+    mkdir -p "$HOME/.local/share/fonts/"
+    cp /tmp/cascadia/ttf/*.ttf "$HOME/.local/share/fonts/" || { echo "Error: Failed to copy fonts"; exit 1; }
+    fc-cache -fv || { echo "Error: Failed to cache fonts"; exit 1; }
     echo "Cascadia Code font installed successfully!"
 else
     echo "Powerline-capable font already installed."
@@ -47,7 +50,11 @@ THEMES_DIR="$HOME/.poshthemes"
 mkdir -p "$THEMES_DIR"
 
 # Copy themes
-cp themes/*.json "$THEMES_DIR"
+if [ -d "themes" ] && [ "$(ls -A themes/*.json 2>/dev/null)" ]; then
+    cp themes/*.json "$THEMES_DIR" || { echo "Error: Failed to copy theme files"; exit 1; }
+else
+    echo "Error: No theme files found in themes/ directory"; exit 1
+fi
 
 # Setup Konsole themes if Konsole is installed
 if command_exists konsole; then
@@ -65,14 +72,20 @@ fi
 # Add oh-my-posh to .bashrc
 BASHRC_FILE="$HOME/.bashrc"
 THEME_PATH="$THEMES_DIR/rgx.omp.json"
-INIT_COMMAND="eval $(oh-my-posh init bash --config '$THEME_PATH')"
+INIT_COMMAND="eval \$(oh-my-posh init bash --config '$THEME_PATH')"
+
+if [ ! -f "$BASHRC_FILE" ]; then
+    touch "$BASHRC_FILE" || { echo "Error: Cannot create .bashrc"; exit 1; }
+fi
 
 if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
     then
     echo "Adding oh-my-posh to .bashrc"
-    echo "" >> "$BASHRC_FILE"
-    echo "# Initialize Oh My Posh" >> "$BASHRC_FILE"
-    echo "$INIT_COMMAND" >> "$BASHRC_FILE"
+    {
+        echo ""
+        echo "# Initialize Oh My Posh"
+        echo "$INIT_COMMAND"
+    } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 else
     echo "oh-my-posh is already configured in .bashrc"
 fi
@@ -81,18 +94,18 @@ fi
 if ! grep -q "RGX Mods Konsole Enhancements" "$BASHRC_FILE";
     then
     echo "Adding Konsole enhancements to .bashrc"
-    echo "" >> "$BASHRC_FILE"
-    echo "# RGX Mods Konsole Enhancements" >> "$BASHRC_FILE"
-    echo "export TERM=xterm-256color" >> "$BASHRC_FILE"
-    echo "export LANG=en_US.UTF-8" >> "$BASHRC_FILE"
-    echo "export LC_ALL=en_US.UTF-8" >> "$BASHRC_FILE"
-    
-    # Add aliases if tools are installed
-    echo "" >> "$BASHRC_FILE"
-    echo "# RGX Mods Enhanced Tools" >> "$BASHRC_FILE"
-    echo "command -v lsd >/dev/null 2>&1 && alias ls='lsd'" >> "$BASHRC_FILE"
-    echo "command -v bat >/dev/null 2>&1 && alias cat='bat'" >> "$BASHRC_FILE"
-    echo "command -v rg >/dev/null 2>&1 && alias grep='rg'" >> "$BASHRC_FILE"
+    {
+        echo ""
+        echo "# RGX Mods Konsole Enhancements"
+        echo "export TERM=xterm-256color"
+        echo "export LANG=en_US.UTF-8"
+        echo "export LC_ALL=en_US.UTF-8"
+        echo ""
+        echo "# RGX Mods Enhanced Tools"
+        echo "command -v lsd >/dev/null 2>&1 && alias ls='lsd'"
+        echo "command -v bat >/dev/null 2>&1 && alias cat='bat'"
+        echo "command -v rg >/dev/null 2>&1 && alias grep='rg'"
+    } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 fi
 
 # Set Konsole environment variables in the Konsole profile

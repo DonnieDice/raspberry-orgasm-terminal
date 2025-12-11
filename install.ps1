@@ -143,9 +143,14 @@ function Install-TerminalConfig {
     
     # ALWAYS use Windows PowerShell only configuration
     Write-Host "Downloading terminal settings (Windows PowerShell only)..." -ForegroundColor Yellow
-    $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings-simple.json").Content
-    $settingsContent | Out-File $settingsPath -Encoding UTF8
-    Write-Host "Terminal settings applied" -ForegroundColor Green
+    try {
+        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/terminal-settings-simple.json" -ErrorAction Stop).Content
+        $settingsContent | Out-File $settingsPath -Encoding UTF8 -ErrorAction Stop
+        Write-Host "Terminal settings applied" -ForegroundColor Green
+    } catch {
+        Write-Host "Error downloading terminal settings: $_" -ForegroundColor Red
+        throw $_
+    }
 }
 
 function Install-PowerShellProfile {
@@ -166,24 +171,25 @@ function Install-PowerShellProfile {
     
     # Download profile
     Write-Host "Downloading PowerShell profile..." -ForegroundColor Yellow
-    $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1").Content
-    $profileContent | Out-File $PROFILE -Encoding UTF8
-    
+    try {
+        $profileContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/Microsoft.PowerShell_profile.ps1" -ErrorAction Stop).Content
+        $profileContent | Out-File $PROFILE -Encoding UTF8 -ErrorAction Stop
+    } catch {
+        Write-Host "Error downloading PowerShell profile: $_" -ForegroundColor Red
+        throw $_
+    }
+
     # Download Oh My Posh theme
     Write-Host "Downloading Oh My Posh theme..." -ForegroundColor Yellow
-    $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx.omp.json").Content
-    $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8
-    
-    Write-Host "PowerShell profile configured" -ForegroundColor Green
-    
-    # Clean any corruption in existing profile
-    Write-Host "Cleaning profile..." -ForegroundColor Yellow
-    if (Test-Path $PROFILE) {
-        $cleanProfile = Get-Content $PROFILE -Raw
-        # Remove any potential corruption
-        $cleanProfile = $cleanProfile -replace '[^\x00-\x7F]+', ''
-        $cleanProfile | Out-File $PROFILE -Encoding UTF8 -Force
+    try {
+        $themeContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/themes/rgx.omp.json" -ErrorAction Stop).Content
+        $themeContent | Out-File "$env:USERPROFILE\rgx.omp.json" -Encoding UTF8 -ErrorAction Stop
+    } catch {
+        Write-Host "Error downloading Oh My Posh theme: $_" -ForegroundColor Red
+        throw $_
     }
+
+    Write-Host "PowerShell profile configured" -ForegroundColor Green
 }
 
 function Install-MicroConfig {
@@ -196,15 +202,25 @@ function Install-MicroConfig {
     }
     
     Write-Host "Downloading micro configurations..." -ForegroundColor Yellow
-    
+
     # Download bindings.json
-    $bindingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/bindings.json").Content
-    $bindingsContent | Out-File "$microConfigPath\bindings.json" -Encoding UTF8
-    
+    try {
+        $bindingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/bindings.json" -ErrorAction Stop).Content
+        $bindingsContent | Out-File "$microConfigPath\bindings.json" -Encoding UTF8 -ErrorAction Stop
+    } catch {
+        Write-Host "Error downloading micro bindings: $_" -ForegroundColor Red
+        throw $_
+    }
+
     # Download settings.json
-    $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/settings.json").Content
-    $settingsContent | Out-File "$microConfigPath\settings.json" -Encoding UTF8
-    
+    try {
+        $settingsContent = (iwr -useb "https://raw.githubusercontent.com/donniedice/raspberry-orgasm-terminal/main/config/micro/settings.json" -ErrorAction Stop).Content
+        $settingsContent | Out-File "$microConfigPath\settings.json" -Encoding UTF8 -ErrorAction Stop
+    } catch {
+        Write-Host "Error downloading micro settings: $_" -ForegroundColor Red
+        throw $_
+    }
+
     Write-Host "Micro editor configured" -ForegroundColor Green
 }
 
@@ -224,7 +240,9 @@ $terminal.ShellExecute("wt.exe", "", "", "runas", 1)
     # Create VBS wrapper
     $vbsContent = @'
 Set objShell = CreateObject("Wscript.Shell")
-objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName) & "\OpenAdminTerminal.ps1""", 0, False
+Set objFS = CreateObject("Scripting.FileSystemObject")
+strScriptPath = objFS.GetParentFolderName(WScript.ScriptFullName) & "\OpenAdminTerminal.ps1"
+objShell.Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & strScriptPath & """", 0, False
 '@
     $vbsContent | Out-File "$env:USERPROFILE\OpenAdminTerminal.vbs" -Encoding ASCII
     

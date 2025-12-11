@@ -53,34 +53,6 @@
         }
     ],
     "keybindings": [
-        { "command": "openNewTabDropdown", "keys": "ctrl+shift+t" },
-        { "command": { "action": "splitPane", "split": "horizontal" }, "keys": "ctrl+shift+-" },
-        { "command": { "action": "splitPane", "split": "vertical" }, "keys": "ctrl+shift+\\" },
-        { "command": "toggleFocusMode", "keys": "f11" },
-        { "command": "toggleAlwaysOnTop", "keys": "ctrl+shift+a" },
-        { "command": { "action": "adjustFontSize", "delta": 1 }, "keys": "ctrl+=" },
-        { "command": { "action": "adjustFontSize", "delta": -1 }, "keys": "ctrl+-" },
-        { "command": "find", "keys": "ctrl+f" },
-        { "command": { "action": "moveFocus", "direction": "up" }, "keys": "alt+up" },
-        { "command": { "action": "moveFocus", "direction": "down" }, "keys": "alt+down" },
-        { "command": { "action": "moveFocus", "direction": "left" }, "keys": "alt+left" },
-        { "command": { "action": "moveFocus", "direction": "right" }, "keys": "alt+right" },
-        { "command": "togglePaneZoom", "keys": "alt+enter" },
-        { "command": { "action": "clearBuffer", "clear": "all" }, "keys": "ctrl+l" },
-        { "command": { "action": "copy", "singleLine": false, "copyFormatting": "all" }, "keys": "ctrl+shift+c" },
-        { "command": "paste", "keys": "ctrl+shift+v" }
-    ],
-    "actions": [
-        {
-            "command": {
-                "action": "globalSummon",
-                "desktop": "toCurrent",
-                "dropdownDuration": 0,
-                "toggleVisibility": true,
-                "monitor": "any"
-            },
-            "keys": "ctrl+`",
-            "name": "Quake Mode"
-        }
+        { "command": "openNewTabDropdown", "keys": "ctrl+shift+t" }
     ]
 }

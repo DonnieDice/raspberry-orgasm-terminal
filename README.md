@@ -218,7 +218,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   </p>
   
   <p>
-    <em>Raspberry Orgasm PowerShell Terminal Theme v1.2.0</em>
+    <em>Raspberry Orgasm PowerShell Terminal Theme v1.2.5</em>
   </p>
   
   <p>

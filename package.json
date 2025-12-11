@@ -3,11 +3,9 @@
   "version": "1.2.5",
   "description": "A beautiful, feature-rich terminal theme with a raspberry/burgundy aesthetic.",
   "main": "index.js",
-  "bin": {
-    "install-rgx-theme": "./index.js"
-  },
+  "bin": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node scripts/validate.js"
   },
   "repository": {
     "type": "git",

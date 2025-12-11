@@ -6,13 +6,26 @@ try {
 }
 
 # Enhanced Aliases from Rice Guide
-Set-Alias -Name nano -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue
-Set-Alias -Name vim -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue
-Set-Alias -Name notepad -Value "$env:USERPROFILE\scoop\shims\micro.exe" -Force -ErrorAction SilentlyContinue
-Set-Alias -Name ls -Value lsd -Force -ErrorAction SilentlyContinue
-Set-Alias -Name ll -Value lsd -Force -ErrorAction SilentlyContinue
-Set-Alias -Name cat -Value bat -Force -ErrorAction SilentlyContinue
-Set-Alias -Name grep -Value rg -Force -ErrorAction SilentlyContinue
+# Only set aliases if the tools are actually installed
+$microPath = "$env:USERPROFILE\scoop\shims\micro.exe"
+if (Test-Path $microPath) {
+    Set-Alias -Name nano -Value $microPath -Force
+    Set-Alias -Name vim -Value $microPath -Force
+    Set-Alias -Name notepad -Value $microPath -Force
+}
+
+if (Get-Command lsd -ErrorAction SilentlyContinue) {
+    Set-Alias -Name ls -Value lsd -Force
+    Set-Alias -Name ll -Value lsd -Force
+}
+
+if (Get-Command bat -ErrorAction SilentlyContinue) {
+    Set-Alias -Name cat -Value bat -Force
+}
+
+if (Get-Command rg -ErrorAction SilentlyContinue) {
+    Set-Alias -Name grep -Value rg -Force
+}
 
 # Git Aliases
 function gs { git status }
