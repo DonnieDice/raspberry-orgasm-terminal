@@ -79,14 +79,21 @@ fi
 # --- 5. Revert .bashrc Changes ---
 echo "Reverting .bashrc changes..."
 BASHRC_FILE="$HOME/.bashrc"
-if [ -f "$BASHRC_FILE" ]; then
+BASHRC_BACKUP_FILE="$HOME/.bashrc.raspberry_bak"
+
+if [ -f "$BASHRC_BACKUP_FILE" ]; then
+    cp "$BASHRC_BACKUP_FILE" "$BASHRC_FILE"
+    rm "$BASHRC_BACKUP_FILE"
+    echo "Original .bashrc restored from backup."
+elif [ -f "$BASHRC_FILE" ]; then
+    # If no backup, just remove the script's additions
     # Remove oh-my-posh initialization
     sed -i '/# Initialize Oh My Posh/,/^eval \$(oh-my-posh init bash --config/d' "$BASHRC_FILE" 2>/dev/null || true
     # Remove RGX Mods Konsole Enhancements
     sed -i '/# RGX Mods Konsole Enhancements/,/^command -v rg >\/dev\/null 2>&1 && alias grep='\''rg'\''/d' "$BASHRC_FILE" 2>/dev/null || true
     # Remove remaining empty lines that might have been created
     sed -i '/^$/d' "$BASHRC_FILE" 2>/dev/null || true
-    echo ".bashrc changes reverted."
+    echo ".bashrc changes reverted (no backup found)."
 else
     echo ".bashrc not found. Skipping .bashrc changes."
 fi

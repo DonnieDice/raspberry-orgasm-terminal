@@ -73,6 +73,13 @@ BASHRC_FILE="$HOME/.bashrc"
 THEME_PATH="$THEMES_DIR/rgx.omp.json"
 INIT_COMMAND="eval \$(oh-my-posh init bash --config '$THEME_PATH')"
 
+# Backup original .bashrc if it exists and hasn't been backed up by this script yet
+BASHRC_BACKUP_FILE="$HOME/.bashrc.raspberry_bak"
+if [ -f "$BASHRC_FILE" ] && [ ! -f "$BASHRC_BACKUP_FILE" ]; then
+    cp "$BASHRC_FILE" "$BASHRC_BACKUP_FILE"
+    echo "Backed up original .bashrc to $BASHRC_BACKUP_FILE"
+fi
+
 if [ ! -f "$BASHRC_FILE" ]; then
     touch "$BASHRC_FILE" || { echo "Error: Cannot create .bashrc"; exit 1; }
 fi
