@@ -6,6 +6,8 @@
 - Updated `uninstall.sh` to reflect the new font installation method.
 - Automated setting of Konsole default profile using `kwriteconfig5` in `install.sh`, removing the manual step.
 - Added cleanup for Konsole default profile in `uninstall.sh`.
+- Reordered Oh My Posh initialization in `install.sh` to ensure it loads last in `.bashrc` for higher precedence.
+- Updated `.bashrc` cleanup in `uninstall.sh` with more robust `sed` patterns, eliminating reliance on fixed line counts.
 
 ## v1.0.1 (December 11, 2025)
 
