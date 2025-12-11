@@ -11,6 +11,7 @@
 - Corrected font specification in `themes/konsole/rgx.profile` to 'Cascadia Mono NF' for proper symbol rendering.
 - Added `command_exists` function to `uninstall.sh`.
 - Removed noisy `.bashrc` sourcing from `uninstall.sh`.
+- Added diagnostic outputs to `install.sh` for Oh My Posh debugging.
 
 ## v1.0.1 (December 11, 2025)
 
