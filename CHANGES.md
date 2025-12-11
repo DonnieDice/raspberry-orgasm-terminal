@@ -4,6 +4,8 @@
 - Packaged essential Cascadia Code Nerd Fonts locally to reduce download size during installation.
 - Updated `install.sh` to copy these local font files and removed external font download steps.
 - Updated `uninstall.sh` to reflect the new font installation method.
+- Automated setting of Konsole default profile using `kwriteconfig5` in `install.sh`, removing the manual step.
+- Added cleanup for Konsole default profile in `uninstall.sh`.
 
 ## v1.0.1 (December 11, 2025)
 
