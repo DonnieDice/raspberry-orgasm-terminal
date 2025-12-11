@@ -32,15 +32,13 @@ if command_exists apt; then
     sudo apt install -y fonts-powerline
 fi
 
-# If that doesn't work, manually install Cascadia Code
+# If that doesn't work, install packaged Cascadia Code Nerd Font
 if ! fc-list | grep -i "Cascadia" > /dev/null; then
-    echo "Installing Cascadia Code font..."
-    wget -q --show-progress -O CascadiaCode.zip "https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip"
-    unzip -o CascadiaCode.zip -d /tmp/cascadia
+    echo "Installing Cascadia Code Nerd Font..."
     mkdir -p "$HOME/.local/share/fonts/"
-    cp /tmp/cascadia/ttf/*.ttf "$HOME/.local/share/fonts/" || { echo "Error: Failed to copy fonts"; exit 1; }
+    cp "fonts/cascadia-code/"*.ttf "$HOME/.local/share/fonts/" || { echo "Error: Failed to copy fonts"; exit 1; }
     fc-cache -fv || { echo "Error: Failed to cache fonts"; exit 1; }
-    echo "Cascadia Code font installed successfully!"
+    echo "Cascadia Code Nerd Font installed successfully!"
 else
     echo "Powerline-capable font already installed."
 fi

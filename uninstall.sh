@@ -22,7 +22,6 @@ if [ -d "$HOME/.local/share/fonts/" ]; then
     echo "Cascadia Code fonts removed from $HOME/.local/share/fonts/."
 fi
 # Clean up temporary font files
-rm -rf CascadiaCode.zip /tmp/cascadia /tmp/CascadiaCode.zip 2>/dev/null || true
 fc-cache -fv || true # Refresh font cache, ignore errors if no fonts were removed
 echo "Font cache refreshed."
 
