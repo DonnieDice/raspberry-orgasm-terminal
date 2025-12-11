@@ -15,6 +15,7 @@ if ! command_exists oh-my-posh;
     echo "oh-my-posh not found. Installing..."
     sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
     sudo chmod +x /usr/local/bin/oh-my-posh
+    oh-my-posh --version
 else
     echo "oh-my-posh is already installed."
 fi
@@ -103,7 +104,12 @@ if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
     {
         echo ""
         echo "# Initialize Oh My Posh"
+        echo "echo \"DEBUG: Initializing Oh My Posh...\""
         echo "$INIT_COMMAND"
+        echo "INIT_EXIT_CODE=\$?"
+        echo "if [ \$INIT_EXIT_CODE -ne 0 ]; then"
+        echo "    echo \"DEBUG: Oh My Posh initialization failed with exit code \$INIT_EXIT_CODE\""
+        echo "fi"
     } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 else
     echo "oh-my-posh is already configured in .bashrc"
@@ -123,6 +129,10 @@ if command_exists konsole; then
         # Attempt to set the RGX Raspberry profile as default in Konsole
         if command_exists kwriteconfig5; then
             echo "Attempting to set RGX Raspberry profile as default in Konsole..."
+            # Save current default Konsole profile before changing it
+            OLD_KONSOLE_DEFAULT_PROFILE=$(kreadconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" 2>/dev/null || echo "")
+            echo "$OLD_KONSOLE_DEFAULT_PROFILE" > "$KONSOLE_DIR/old_default_profile_backup"
+            echo "Backed up old Konsole default profile: $OLD_KONSOLE_DEFAULT_PROFILE"
             kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "rgx.profile" || true
             echo "Konsole default profile set (attempted)."
         else
@@ -135,4 +145,5 @@ echo ""
 echo "Installation complete!"
 echo "Please restart your terminal to see the changes."
 # Source .bashrc to apply changes immediately if it's an interactive shell
+echo "DEBUG: Sourcing .bashrc to apply changes immediately."
 [ -f "$BASHRC_FILE" ] && . "$BASHRC_FILE"
