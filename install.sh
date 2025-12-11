@@ -116,13 +116,20 @@ if command_exists konsole; then
             echo "[Environment]" >> "$KONSOLE_DIR/rgx.profile"
             echo "TERM=xterm-256color" >> "$KONSOLE_DIR/rgx.profile"
         fi
+
+        # Attempt to set the RGX Raspberry profile as default in Konsole
+        if command_exists kwriteconfig5; then
+            echo "Attempting to set RGX Raspberry profile as default in Konsole..."
+            kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "rgx.profile" || true
+            echo "Konsole default profile set (attempted)."
+        else
+            echo "kwriteconfig5 not found. Cannot automatically set Konsole default profile."
+        fi
     fi
 fi
 
 echo ""
 echo "Installation complete!"
 echo "Please restart your terminal to see the changes."
-echo "For Konsole users, please set the RGX Raspberry profile in Konsole settings.
-
 # Source .bashrc to apply changes immediately if it's an interactive shell
-[ -f "$BASHRC_FILE" ] && . "$BASHRC_FILE""
+[ -f "$BASHRC_FILE" ] && . "$BASHRC_FILE"

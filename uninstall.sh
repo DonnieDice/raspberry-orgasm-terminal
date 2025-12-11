@@ -43,6 +43,13 @@ KONSOLE_DIR="$HOME/.local/share/konsole"
 if [ -d "$KONSOLE_DIR" ]; then
     rm -f "$KONSOLE_DIR/rgx.colorscheme" 2>/dev/null || true
     rm -f "$KONSOLE_DIR/rgx.profile" 2>/dev/null || true
+    # Attempt to reset Konsole default profile
+    if command_exists kwriteconfig5; then
+        echo "Attempting to reset Konsole default profile..."
+        # Set DefaultProfile to empty string or a known default if you have one
+        kwriteconfig5 --file "$HOME/.config/konsolerc" --group "Desktop Entry" --key "DefaultProfile" "" || true
+        echo "Konsole default profile reset (attempted)."
+    fi
     # Remove directory if empty, to be safe.
     rmdir "$KONSOLE_DIR" 2>/dev/null || true
     echo "Konsole theme files removed."
