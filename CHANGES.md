@@ -12,6 +12,9 @@
 - Added `command_exists` function to `uninstall.sh`.
 - Removed noisy `.bashrc` sourcing from `uninstall.sh`.
 - Implemented robust `.bashrc` backup in `install.sh` and restoration in `uninstall.sh` to ensure proper shell environment reversion.
+- Added retry and timeout logic for `oh-my-posh` download in `install.sh`.
+- Implemented a flag file in `install.sh` to track if `oh-my-posh` was installed by the script.
+- Modified `uninstall.sh` to only remove `oh-my-posh` binary if installed by this script, preserving user's pre-existing installations.
 - Added diagnostic outputs to `install.sh` for Oh My Posh debugging.
 
 ## v1.0.1 (December 11, 2025)
