@@ -35,8 +35,8 @@ fi
 # If that doesn't work, manually install Cascadia Code
 if ! fc-list | grep -i "Cascadia" > /dev/null; then
     echo "Installing Cascadia Code font..."
-    wget https://github.com/microsoft/cascadia-code/releases/latest/download/CascadiaCode.zip -O /tmp/CascadiaCode.zip
-    unzip -o /tmp/CascadiaCode.zip -d /tmp/cascadia
+    wget -q --show-progress -O CascadiaCode.zip "https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip"
+    unzip -o CascadiaCode.zip -d /tmp/cascadia
     mkdir -p "$HOME/.local/share/fonts/"
     cp /tmp/cascadia/ttf/*.ttf "$HOME/.local/share/fonts/" || { echo "Error: Failed to copy fonts"; exit 1; }
     fc-cache -fv || { echo "Error: Failed to cache fonts"; exit 1; }
@@ -124,4 +124,7 @@ fi
 echo ""
 echo "Installation complete!"
 echo "Please restart your terminal to see the changes."
-echo "For Konsole users, please set the RGX Raspberry profile in Konsole settings."
+echo "For Konsole users, please set the RGX Raspberry profile in Konsole settings.
+
+# Source .bashrc to apply changes immediately if it's an interactive shell
+[ -f "$BASHRC_FILE" ] && . "$BASHRC_FILE""
