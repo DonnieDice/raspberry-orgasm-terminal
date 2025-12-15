@@ -46,7 +46,7 @@ if ! command_exists oh-my-posh; then
             run_sudo_command yum install -y curl unzip powerline-fonts lsd bat ripgrep
             ;;
         pacman)
-            run_sudo_command pacman -Syu --noconfirm curl unzip fonts-powerline lsd bat ripgrep
+            run_sudo_command pacman -Syu --noconfirm curl unzip powerline-fonts lsd bat ripgrep
             ;;
         *)
             echo "Unsupported package manager. Please install curl, unzip, powerline-fonts, lsd, bat, and ripgrep manually."
