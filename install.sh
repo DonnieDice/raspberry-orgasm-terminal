@@ -40,19 +40,21 @@ if ! command_exists oh-my-posh; then
     case "$PKG_MANAGER" in
         apt)
             run_sudo_command apt-get update
-            run_sudo_command apt-get install -y oh-my-posh fonts-powerline lsd bat ripgrep
+            run_sudo_command apt-get install -y curl unzip fonts-powerline lsd bat ripgrep
             ;;
         yum)
-            run_sudo_command yum install -y oh-my-posh powerline-fonts lsd bat ripgrep
+            run_sudo_command yum install -y curl unzip powerline-fonts lsd bat ripgrep
             ;;
         pacman)
-            run_sudo_command pacman -Syu --noconfirm oh-my-posh powerline-fonts lsd bat ripgrep
+            run_sudo_command pacman -Syu --noconfirm curl unzip fonts-powerline lsd bat ripgrep
             ;;
         *)
-            echo "Unsupported package manager. Please install oh-my-posh, powerline-fonts, lsd, bat, and ripgrep manually."
+            echo "Unsupported package manager. Please install curl, unzip, powerline-fonts, lsd, bat, and ripgrep manually."
             exit 1
             ;;
     esac
+    curl -s https://ohmyposh.dev/install.sh | run_sudo_command bash -s
+
 else
     echo "oh-my-posh is already installed."
 fi
