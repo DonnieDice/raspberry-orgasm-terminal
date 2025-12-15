@@ -9,80 +9,55 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to prompt for sudo password and keep it alive
-run_sudo_command() {
-    local cmd="$@"
-    local MAX_SUDO_ATTEMPTS=3
-    for (( i=1; i<=MAX_SUDO_ATTEMPTS; ++i )); do
-        if sudo -v; then # Check if sudo credentials are valid
-            echo "Running: $cmd"
-            if $cmd; then # Execute the actual command
-                return 0
-            else
-                echo "Command '$cmd' failed."
-                return 1
-            fi
-        else
-            echo "Sudo authentication failed (attempt $i/$MAX_SUDO_ATTEMPTS)."
-            if [ $i -eq $MAX_SUDO_ATTEMPTS ]; then
-                echo "Max sudo attempts reached. Exiting."
-                exit 1
-            fi
-            sleep 1 # Small delay before next prompt
-        fi
-    done
+# Function to detect package manager
+detect_package_manager() {
+    if command_exists apt-get; then
+        echo "apt"
+    elif command_exists yum; then
+        echo "yum"
+    elif command_exists pacman; then
+        echo "pacman"
+    else
+        echo "unsupported"
+    fi
 }
 
-# Install oh-my-posh if not installed
+# Function to prompt for sudo password and keep it alive
+run_sudo_command() {
+    if ! sudo -v; then
+        echo "Sudo authentication failed. Exiting."
+        exit 1
+    fi
+    sudo "$@"
+}
+
+# Detect package manager
+PKG_MANAGER=$(detect_package_manager)
+
+# Install oh-my-posh and powerline fonts
 if ! command_exists oh-my-posh; then
     echo "oh-my-posh not found. Installing..."
-    MAX_RETRIES=5
-    RETRY_DELAY_SECONDS=5
-    for i in $(seq 1 $MAX_RETRIES); do
-        echo "Attempt $i/$MAX_RETRIES: Downloading oh-my-posh..."
-        if run_sudo_command wget --tries=1 --timeout=20 https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh; then
-            echo "oh-my-posh downloaded successfully."
-            break
-        else
-            echo "Download failed. Retrying in $RETRY_DELAY_SECONDS seconds..."
-            sleep $RETRY_DELAY_SECONDS
-        fi
-        if [ $i -eq $MAX_RETRIES ]; then
-            echo "Failed to download oh-my-posh after $MAX_RETRIES attempts."
+    case "$PKG_MANAGER" in
+        apt)
+            run_sudo_command apt-get update
+            run_sudo_command apt-get install -y oh-my-posh fonts-powerline lsd bat ripgrep
+            ;;
+        yum)
+            run_sudo_command yum install -y oh-my-posh powerline-fonts lsd bat ripgrep
+            ;;
+        pacman)
+            run_sudo_command pacman -Syu --noconfirm oh-my-posh powerline-fonts lsd bat ripgrep
+            ;;
+        *)
+            echo "Unsupported package manager. Please install oh-my-posh, powerline-fonts, lsd, bat, and ripgrep manually."
             exit 1
-        fi
-    done
-    run_sudo_command chmod +x /usr/local/bin/oh-my-posh
-    touch "$HOME/.local/share/raspberry-orgasm-terminal_oh_my_posh_installed_by_us"
-    echo "Flag file created: Oh My Posh installed by this script."
-    oh-my-posh --version
+            ;;
+    esac
 else
     echo "oh-my-posh is already installed."
 fi
 
-# Install powerline fonts for proper symbol rendering
-echo "Installing powerline fonts for proper symbol rendering..."
-if ! command_exists pip3; then
-    echo "pip3 not found. Installing python3-pip..."
-    run_sudo_command apt update && run_sudo_command apt install -y python3-pip
-fi
 
-# Try to install fonts-powerline package first
-if command_exists apt; then
-    echo "Installing system powerline fonts..."
-    run_sudo_command apt install -y fonts-powerline
-fi
-
-# If that doesn't work, install packaged Cascadia Code Nerd Font
-if ! fc-list | grep -i "Cascadia" > /dev/null; then
-    echo "Installing Cascadia Code Nerd Font..."
-    mkdir -p "$HOME/.local/share/fonts/"
-    cp "fonts/cascadia-code/"*.ttf "$HOME/.local/share/fonts/" || { echo "Error: Failed to copy fonts"; exit 1; }
-    fc-cache -fv || { echo "Error: Failed to cache fonts"; exit 1; }
-    echo "Cascadia Code Nerd Font installed successfully!"
-else
-    echo "Powerline-capable font already installed."
-fi
 
 # Create themes directory
 THEMES_DIR="$HOME/.poshthemes"
@@ -138,9 +113,9 @@ if ! grep -q "RGX Mods Konsole Enhancements" "$BASHRC_FILE";
         echo "export LC_ALL=en_US.UTF-8"
         echo ""
         echo "# RGX Mods Enhanced Tools"
-        echo "command -v lsd >/dev/null 2>&1 && alias ls='lsd'"
-        echo "command -v bat >/dev/null 2>&1 && alias cat='bat'"
-        echo "command -v rg >/dev/null 2>&1 && alias grep='rg'"
+        echo "alias ls='lsd'"
+        echo "alias cat='bat'"
+        echo "alias grep='rg'"
     } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 fi
 
