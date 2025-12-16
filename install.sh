@@ -40,7 +40,7 @@ if ! command_exists oh-my-posh; then
     case "$PKG_MANAGER" in
         apt)
             run_sudo_command apt-get update
-            run_sudo_command apt-get install -y curl unzip fonts-powerline lsd bat ripgrep
+            run_sudo_command apt-get install -y curl unzip powerline-fonts lsd bat ripgrep
             ;;
         yum)
             run_sudo_command yum install -y curl unzip powerline-fonts lsd bat ripgrep
