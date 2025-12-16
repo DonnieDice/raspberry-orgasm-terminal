@@ -32,7 +32,7 @@ switch (platform) {
         break;
     case 'linux':
     case 'darwin':
-        executeScript('bash', [path.join(scriptsDir, 'install.sh')]);
+        executeScript('bash', [path.join(scriptsDir, 'install-linux.sh')]);
         break;
     default:
         console.error(`Unsupported platform: ${platform}`);
