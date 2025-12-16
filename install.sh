@@ -34,6 +34,17 @@ run_sudo_command() {
 # Detect package manager
 PKG_MANAGER=$(detect_package_manager)
 
+# Check for sudo privileges
+if ! sudo -n true 2>/dev/null; then
+    echo "This script requires sudo privileges for package installation."
+    echo "Please run it with 'sudo ./install.sh' or enter your password when prompted."
+    # Attempt to gain sudo privileges
+    if ! sudo -v; then
+        echo "Sudo authentication failed. Exiting."
+        exit 1
+    fi
+fi
+
 # Install oh-my-posh and powerline fonts
 if ! command_exists oh-my-posh; then
     echo "oh-my-posh not found. Installing..."
