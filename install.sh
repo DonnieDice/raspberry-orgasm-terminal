@@ -88,7 +88,7 @@ fi
 # Add oh-my-posh to .bashrc
 BASHRC_FILE="$HOME/.bashrc"
 THEME_PATH="$THEMES_DIR/rgx.omp.json"
-INIT_COMMAND="eval \$(oh-my-posh init bash --config '$THEME_PATH')"
+INIT_COMMAND="eval $(oh-my-posh init bash --config '$THEME_PATH')"
 
 # Backup original .bashrc if it exists and hasn't been backed up by this script yet
 BASHRC_BACKUP_FILE="$HOME/.bashrc.raspberry_bak"
@@ -130,9 +130,10 @@ if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
         echo "# Initialize Oh My Posh"
         echo "echo \"DEBUG: Initializing Oh My Posh...\""
         echo "$INIT_COMMAND"
-        echo "INIT_EXIT_CODE=\$?"
+        echo "INIT_EXIT_CODE=
+"
         echo "if [ \$INIT_EXIT_CODE -ne 0 ]; then"
-        echo "    echo \"DEBUG: Oh My Posh initialization failed with exit code \$INIT_EXIT_CODE\""
+        echo "    echo \"DEBUG: Oh My Posh initialization failed with exit code \\$INIT_EXIT_CODE\""
         echo "fi"
     } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 else
