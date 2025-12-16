@@ -8,4 +8,5 @@
 
 ### Changed
 - `index.js` has been modified to execute `install.sh` for Linux and Darwin platforms.
+- Project version incremented to `1.2.6` in `package.json` to force `npm`/`npx` to fetch latest content.
 
