@@ -57,7 +57,7 @@ if ! command_exists oh-my-posh; then
             run_sudo_command yum install -y curl unzip powerline-fonts lsd bat ripgrep
             ;;
         pacman)
-            run_sudo_command pacman -Syu --noconfirm curl unzip powerline-fonts lsd bat ripgrep
+            run_sudo_command pacman -Syu --noconfirm curl unzip nerd-fonts-complete lsd bat ripgrep
             ;;
         *)
             echo "Unsupported package manager. Please install curl, unzip, powerline-fonts, lsd, bat, and ripgrep manually."
@@ -65,6 +65,7 @@ if ! command_exists oh-my-posh; then
             ;;
     esac
     curl -s https://ohmyposh.dev/install.sh | run_sudo_command bash -s
+    run_sudo_command fc-cache -fv
 
 else
     echo "oh-my-posh is already installed."
@@ -139,13 +140,8 @@ if ! grep -q "oh-my-posh init bash" "$BASHRC_FILE";
     {
         echo ""
         echo "# Initialize Oh My Posh"
-        echo "echo \"DEBUG: Initializing Oh My Posh...\""
+        echo "echo \"DEBUG: Initializing Oh My Posh in bash...\""
         echo "$INIT_COMMAND"
-        echo "INIT_EXIT_CODE=
-"
-        echo "if [ \$INIT_EXIT_CODE -ne 0 ]; then"
-        echo "    echo \"DEBUG: Oh My Posh initialization failed with exit code \\$INIT_EXIT_CODE\""
-        echo "fi"
     } >> "$BASHRC_FILE" || { echo "Error: Failed to update .bashrc"; exit 1; }
 else
     echo "oh-my-posh is already configured in .bashrc"
