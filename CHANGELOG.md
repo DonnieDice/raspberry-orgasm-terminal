@@ -7,6 +7,6 @@
 - The `install.sh` script now uses the official `oh-my-posh` installer, ensuring a reliable installation across all supported Linux distributions.
 
 ### Changed
-- `index.js` has been modified to execute `install.sh` for Linux and Darwin platforms.
+- `index.js` has been significantly modified to dynamically fetch and execute the latest `install.sh` script directly from GitHub's raw content URL at runtime. This bypasses `npm`/`npx` caching mechanisms to ensure the most up-to-date installation logic is always used.
 - Project version incremented to `1.2.6` in `package.json` to force `npm`/`npx` to fetch latest content.
 
